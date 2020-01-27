@@ -1,2 +1,3 @@
 # algo-expert
-algo expert soluations
+
+algo expert, codewars and codility solutions
