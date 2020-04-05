@@ -1,3 +1,4 @@
+// O(n squared)
 const twoNumberSum = (array, targetSum) => {
   const res = [];
   let min, max;
@@ -15,3 +16,16 @@ const twoNumberSum = (array, targetSum) => {
   }
   return res;
 };
+
+function twoNumberSumWithHash(array, targetSum) {
+  const set = new Set(array);
+
+  for (let i = 0; i < array.length; i++) {
+    let elem = array[i];
+    let diff = targetSum - elem;
+    if (set.has(diff) && elem !== diff) {
+      return [elem, diff];
+    }
+  }
+  return [];
+}
