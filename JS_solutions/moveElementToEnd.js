@@ -25,3 +25,9 @@ const swap = (arr, left, right) => {
   arr[left] = arr[right];
   arr[right] = move;
 };
+
+const moveElementToEndOneLine = (array, toMove) => {
+  return array
+    .filter((item) => item !== toMove)
+    .concat(array.filter((item) => item === toMove));
+};
