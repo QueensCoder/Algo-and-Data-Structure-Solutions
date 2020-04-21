@@ -41,5 +41,7 @@ function balancedBrackets(string) {
       }
     }
   }
-  return !stack.stack.length ? true : false;
+  //   if stack length is 0 it meansthe stack was empty and the func should return true
+  // if the len is > 0 means there were unmatched brackets
+  return !stack.stack.length;
 }
