@@ -23,7 +23,7 @@ function longestPalindromicSubstring(string) {
       if (currPal.length > longest.length) longest = currPal;
     }
 
-    // 	look for even lenght,	 reset currPal, rp , lp
+    // 	look for even len,	 reset currPal, rp , lp
     currPal = '';
     rp = i + 1;
     lp = i;
