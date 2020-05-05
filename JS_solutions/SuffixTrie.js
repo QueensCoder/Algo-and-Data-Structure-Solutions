@@ -35,8 +35,10 @@ class SuffixTrie {
     while (pointer < string.length) {
       let char = string[pointer++];
       if (pointer === string.length) {
+        //   if at end make of string ensure it has the ending symbol
         return !!currNode[char]['*'];
       } else if (!currNode[char]) {
+        //   if string has a char that is not in the correct place of a trie
         return false;
       }
       currNode = currNode[char];
