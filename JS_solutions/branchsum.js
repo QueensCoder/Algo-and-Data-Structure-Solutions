@@ -7,23 +7,22 @@ class BinaryTree {
 }
 
 function branchSums(root, sum = 0, res = []) {
-	const {left, right, value } = root
+  const { left, right, value } = root;
 
-	sum += value
-	//store the sum at this function call
-	
-	
-	if(!left && !right){
-		res.push(sum)
-	}
-	
-	if(left){
-		branchSums(left,sum, res)
-	}
-	
-	if(right){
-		branchSums(right, sum, res)
-	}
-	
-	return res
+  sum += value;
+  //store the sum at this function call
+
+  if (!left && !right) {
+    res.push(sum);
+  }
+
+  if (left) {
+    branchSums(left, sum, res);
+  }
+
+  if (right) {
+    branchSums(right, sum, res);
+  }
+
+  return res;
 }
