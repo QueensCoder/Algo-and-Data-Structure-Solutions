@@ -7,13 +7,18 @@ const maxtrix = [
 const transposeMatrix = (matrix: number[][]): number[][] => {
   const matrixLength = matrix.length;
 
-  const transposedMatrix = new Array(matrixLength).fill([]);
+  const arr: number[][] = [];
   for (let i = 0; i < matrixLength; i++) {
     const row = matrix[i];
     const rowLength = row.length;
-    for (let j = 0; j < rowLength; j++) {}
+
+    for (let j = 0; j < rowLength; j++) {
+      if (!arr[j]) arr[j] = [matrix[i][j]];
+      else arr[j].push(matrix[i][j]);
+    }
   }
-  return transposedMatrix;
+  return arr;
 };
 
 console.log(transposeMatrix(maxtrix));
+console.log(transposeMatrix([[1, 2]]));
