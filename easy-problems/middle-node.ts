@@ -1,4 +1,3 @@
-// This is an input class. Do not edit.
 export class LinkedList {
   value: number;
   next: LinkedList | null;
