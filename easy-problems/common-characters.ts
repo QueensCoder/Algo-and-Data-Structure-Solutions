@@ -18,16 +18,31 @@ export function commonCharacters(strings: string[]) {
   type Hash = {
     [key: string]: number;
   };
-  const hash = {};
-  const allChars = new Set(strings.join('').split(''));
-  const totalWords = strings.length;
-  const result: string[] = [];
+  const hash: Hash = {};
 
-  allChars.forEach((char) => {
-    const currentMatches = strings.filter((word) => word.includes(char));
-    if (currentMatches.length === totalWords) result.push(char);
+  //   total time complexity: O(n * m)
+  //   total space complexity: O(m) - the length of the longest word
+
+  //   O(n)
+  strings.forEach((word) => {
+    type WordSet = Set<string>;
+    const wordSet: WordSet = new Set();
+
+    // O(m)
+    for (let i = 0; i < word.length; i++) {
+      wordSet.add(word[i]);
+    }
+
+    // O(m)
+    wordSet.forEach((char) => {
+      if (hash[char]) hash[char]++;
+      else hash[char] = 1;
+    });
   });
 
+  const result = Object.keys(hash).filter(
+    (key) => hash[key] === strings.length,
+  );
   return result;
 }
 
