@@ -9,35 +9,24 @@ export class LinkedList {
 }
 type NodeType = LinkedList | null;
 export function removeDuplicatesFromLinkedList(linkedList: LinkedList) {
-  let currNode: NodeType = linkedList;
-  const linkedListHash: { [key: string]: number } = {};
-  while (currNode) {
-    let value = currNode.value;
-
-    if (linkedListHash[value]) {
-      linkedListHash[value]++;
-    } else {
-      linkedListHash[value] = 1;
-    }
-    currNode = currNode.next;
-  }
-
   let nodeToProcess: NodeType = linkedList;
   let lastNode: NodeType = null;
 
   while (nodeToProcess) {
     let value = nodeToProcess.value;
+    let lastValue = lastNode?.value;
 
-    if (lastNode && linkedListHash[value] > 1) {
+    if (lastNode && value === lastValue) {
       lastNode.next = nodeToProcess.next;
-      nodeToProcess = nodeToProcess.next?.next || null;
-      linkedListHash[value]--;
+      lastNode = nodeToProcess;
+      nodeToProcess = nodeToProcess.next;
     } else {
       lastNode = nodeToProcess;
       nodeToProcess = nodeToProcess.next;
     }
   }
-  return linkedList;
+
+  //   return linkedList;
 }
 
 const linkedList = new LinkedList(1);
@@ -50,7 +39,7 @@ linkedList.next.next.next.next.next.next = new LinkedList(5);
 linkedList.next.next.next.next.next.next.next = new LinkedList(6);
 linkedList.next.next.next.next.next.next.next.next = new LinkedList(6);
 
-console.log(removeDuplicatesFromLinkedList(linkedList));
+// console.log(removeDuplicatesFromLinkedList(linkedList));
 
 const linkedList2 = new LinkedList(1);
 linkedList2.next = new LinkedList(1);
@@ -67,5 +56,5 @@ const inspectLL = (linkedList: LinkedList) => {
   }
 };
 
-console.log(inspectLL(linkedList));
-// console.log(inspectLL(linkedList2));
+// console.log(inspectLL(linkedList));
+console.log(inspectLL(linkedList2));
