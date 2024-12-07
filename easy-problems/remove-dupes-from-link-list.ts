@@ -9,7 +9,9 @@ export class LinkedList {
 }
 
 type NodeType = LinkedList | null;
-export function removeDuplicatesFromLinkedList(linkedList: LinkedList) {
+export function removeDuplicatesFromLinkedListBruteForce(
+  linkedList: LinkedList,
+) {
   // O(n) time | O(n) space
   const nodeHash: { [key: number]: number } = {};
   let currNodeForHash: NodeType = linkedList;
@@ -45,14 +47,14 @@ linkedList.next.next.next.next.next.next = new LinkedList(5);
 linkedList.next.next.next.next.next.next.next = new LinkedList(6);
 linkedList.next.next.next.next.next.next.next.next = new LinkedList(6);
 
-console.log(removeDuplicatesFromLinkedList(linkedList));
+console.log(removeDuplicatesFromLinkedListBruteForce(linkedList));
 
 const linkedList2 = new LinkedList(1);
 linkedList2.next = new LinkedList(1);
 linkedList2.next.next = new LinkedList(1);
 linkedList2.next.next.next = new LinkedList(1);
 linkedList2.next.next.next.next = new LinkedList(1);
-// console.log(removeDuplicatesFromLinkedList(linkedList2));
+// console.log(removeDuplicatesFromLinkedListBruteForce(linkedList2));
 
 const inspectLL = (linkedList: LinkedList) => {
   let currNode: NodeType = linkedList;
