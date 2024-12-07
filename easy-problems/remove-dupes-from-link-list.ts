@@ -37,6 +37,19 @@ export function removeDuplicatesFromLinkedListBruteForce(
   return linkedList;
 }
 
+export function removeDuplicatesFromLinkedList(linkedList: LinkedList) {
+  // O(n) time | O(1) space
+  let currNode: NodeType = linkedList;
+  while (currNode) {
+    let nextNode: NodeType = currNode.next;
+    if (nextNode && currNode.value === nextNode.value) {
+      currNode.next = nextNode.next;
+    }
+    currNode = currNode.next;
+  }
+  return linkedList;
+}
+
 const linkedList = new LinkedList(1);
 linkedList.next = new LinkedList(1);
 linkedList.next.next = new LinkedList(3);
@@ -47,7 +60,8 @@ linkedList.next.next.next.next.next.next = new LinkedList(5);
 linkedList.next.next.next.next.next.next.next = new LinkedList(6);
 linkedList.next.next.next.next.next.next.next.next = new LinkedList(6);
 
-console.log(removeDuplicatesFromLinkedListBruteForce(linkedList));
+// console.log(removeDuplicatesFromLinkedListBruteForce(linkedList));
+// console.log(removeDuplicatesFromLinkedList(linkedList));
 
 const linkedList2 = new LinkedList(1);
 linkedList2.next = new LinkedList(1);
@@ -55,6 +69,7 @@ linkedList2.next.next = new LinkedList(1);
 linkedList2.next.next.next = new LinkedList(1);
 linkedList2.next.next.next.next = new LinkedList(1);
 // console.log(removeDuplicatesFromLinkedListBruteForce(linkedList2));
+console.log(removeDuplicatesFromLinkedList(linkedList2));
 
 const inspectLL = (linkedList: LinkedList) => {
   let currNode: NodeType = linkedList;
@@ -64,5 +79,5 @@ const inspectLL = (linkedList: LinkedList) => {
   }
 };
 
-console.log(inspectLL(linkedList));
-// console.log(inspectLL(linkedList2));
+// console.log(inspectLL(linkedList));
+console.log(inspectLL(linkedList2));
