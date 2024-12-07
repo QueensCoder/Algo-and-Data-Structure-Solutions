@@ -7,26 +7,32 @@ export class LinkedList {
     this.next = null;
   }
 }
+
 type NodeType = LinkedList | null;
 export function removeDuplicatesFromLinkedList(linkedList: LinkedList) {
-  let nodeToProcess: NodeType = linkedList;
-  let lastNode: NodeType = null;
-
-  while (nodeToProcess) {
-    let value = nodeToProcess.value;
-    let lastValue = lastNode?.value;
-
-    if (lastNode && value === lastValue) {
-      lastNode.next = nodeToProcess.next;
-      lastNode = nodeToProcess;
-      nodeToProcess = nodeToProcess.next;
-    } else {
-      lastNode = nodeToProcess;
-      nodeToProcess = nodeToProcess.next;
-    }
+  // O(n) time | O(n) space
+  const nodeHash: { [key: number]: number } = {};
+  let currNodeForHash: NodeType = linkedList;
+  while (currNodeForHash) {
+    nodeHash[currNodeForHash.value] = nodeHash[currNodeForHash.value] + 1 || 1;
+    currNodeForHash = currNodeForHash.next;
   }
 
-  //   return linkedList;
+  let prevNode: NodeType = null;
+  let currNode: NodeType = linkedList;
+
+  while (currNode) {
+    let value = currNode.value;
+
+    if (prevNode && nodeHash[value] > 1) {
+      nodeHash[value]--;
+      prevNode.next = currNode.next;
+    } else {
+      prevNode = currNode;
+    }
+    currNode = currNode.next;
+  }
+  return linkedList;
 }
 
 const linkedList = new LinkedList(1);
@@ -39,7 +45,7 @@ linkedList.next.next.next.next.next.next = new LinkedList(5);
 linkedList.next.next.next.next.next.next.next = new LinkedList(6);
 linkedList.next.next.next.next.next.next.next.next = new LinkedList(6);
 
-// console.log(removeDuplicatesFromLinkedList(linkedList));
+console.log(removeDuplicatesFromLinkedList(linkedList));
 
 const linkedList2 = new LinkedList(1);
 linkedList2.next = new LinkedList(1);
@@ -56,5 +62,5 @@ const inspectLL = (linkedList: LinkedList) => {
   }
 };
 
-// console.log(inspectLL(linkedList));
-console.log(inspectLL(linkedList2));
+console.log(inspectLL(linkedList));
+// console.log(inspectLL(linkedList2));
