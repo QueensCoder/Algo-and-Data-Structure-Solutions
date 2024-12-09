@@ -5,24 +5,27 @@ export function sortedSquaredArrayBruteForce(array: number[]) {
 // console.log(sortedSquaredArrayBruteForce([0, 5, 10])); // [0, 25, 100]
 // console.log(sortedSquaredArrayBruteForce([-3, -2, -1])); // [1, 4, 9]
 
+// O(n) time | O(n) space
+
 export function sortedSquaredArray(array: number[]) {
   let upperBound = array.length - 1;
   let lowerBound = 0;
-  const result = Array(array.length).fill(0);
+
+  const result: number[] = [];
 
   while (upperBound >= lowerBound) {
     const upperValue = array[upperBound];
     const lowerValue = array[lowerBound];
 
-    const upperAbsValue = Math.abs(upperValue);
-    const lowerAbsValue = Math.abs(lowerValue);
+    const upperABS = Math.abs(upperValue);
+    const lowerABS = Math.abs(lowerValue);
 
-    if (upperAbsValue >= lowerAbsValue) {
-      result[upperBound] = Math.pow(upperValue, 2);
-      upperBound--;
-    } else if (upperAbsValue < lowerAbsValue) {
-      result[upperBound] = Math.pow(lowerValue, 2);
+    if (upperABS < lowerABS) {
+      result[upperBound - lowerBound] = Math.pow(lowerABS, 2);
       lowerBound++;
+    } else if (lowerABS <= upperABS) {
+      result[upperBound - lowerBound] = Math.pow(upperABS, 2);
+      upperBound--;
     }
   }
 
