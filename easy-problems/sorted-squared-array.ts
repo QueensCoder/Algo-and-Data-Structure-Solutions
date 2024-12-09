@@ -17,8 +17,6 @@ export function sortedSquaredArray(array: number[]) {
     const upperAbsValue = Math.abs(upperValue);
     const lowerAbsValue = Math.abs(lowerValue);
 
-    console.log(upperAbsValue, lowerAbsValue);
-
     if (upperAbsValue >= lowerAbsValue) {
       result[upperBound] = Math.pow(upperValue, 2);
       upperBound--;

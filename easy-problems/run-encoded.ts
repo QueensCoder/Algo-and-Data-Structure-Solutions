@@ -11,9 +11,34 @@
  */
 
 export function runLengthEncoding(string: string) {
-  // Write your code here.
-  return string;
+  let runLengthEncoding = '';
+  const MAX_COUNT = 9;
+
+  let currCount = 0;
+
+  for (let i = 0; i < string.length; i++) {
+    let currChar = string[i];
+    let lastChar = string[i - 1];
+
+    // max size hit
+    if (lastChar && currCount === MAX_COUNT) {
+      let encodedPart = `${currCount}${currChar}`;
+      runLengthEncoding += encodedPart;
+      currCount = 0;
+      //   char changes
+    } else if (lastChar && lastChar !== currChar) {
+      let encodedPart = `${currCount}${lastChar}`;
+      runLengthEncoding += encodedPart;
+      currCount = 0;
+      // end of string
+    } else if (i === string.length - 1) {
+      runLengthEncoding += `${currCount + 1}${currChar}`;
+    }
+
+    currCount++;
+  }
+  return runLengthEncoding;
 }
 
-console.log(runLengthEncoding('AAAAAAAAAAAAABBCCCCDD'), '9A4A2B4C2D');
-console.log(runLengthEncoding('aA'), '1a1A');
+console.log(runLengthEncoding('AAAAAAAAAAAAABBCCCCDD'), '9A4A2B4C2D', '...');
+// console.log(runLengthEncoding('aA'), '1a1A');
