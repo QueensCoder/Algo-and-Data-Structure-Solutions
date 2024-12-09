@@ -42,7 +42,7 @@ export function removeDuplicatesFromLinkedList(linkedList: LinkedList) {
   let currNode: NodeType = linkedList;
   while (currNode) {
     let nextNode: NodeType = currNode.next;
-    if (nextNode && currNode.value === nextNode.value) {
+    if (currNode.value === nextNode?.value) {
       currNode.next = nextNode.next;
     }
     currNode = currNode.next;

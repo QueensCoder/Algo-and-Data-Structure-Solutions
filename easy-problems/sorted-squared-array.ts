@@ -10,7 +10,6 @@ export function sortedSquaredArray(array: number[]) {
   let lowerBound = 0;
   const result = Array(array.length).fill(0);
 
-  console.log(array[upperBound], array[lowerBound]);
   while (upperBound >= lowerBound) {
     const upperValue = array[upperBound];
     const lowerValue = array[lowerBound];
@@ -21,11 +20,9 @@ export function sortedSquaredArray(array: number[]) {
     console.log(upperAbsValue, lowerAbsValue);
 
     if (upperAbsValue >= lowerAbsValue) {
-      console.log('got here');
       result[upperBound] = Math.pow(upperValue, 2);
       upperBound--;
     } else if (upperAbsValue < lowerAbsValue) {
-      console.log('got here2');
       result[upperBound] = Math.pow(lowerValue, 2);
       lowerBound++;
     }
