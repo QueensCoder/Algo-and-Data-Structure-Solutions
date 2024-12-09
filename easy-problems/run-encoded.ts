@@ -8,6 +8,11 @@
  * - for each letter in the string, store the current letter and the count, dump if 9 and add to result
  * - if char changes dump and add to result
  * - dump means remove from current count/storage and add to result string
+ * - 3 cases
+ * 	- max count hit
+ * - char changes
+ * - end of string
+ *  must do char change check first just in case we hit max count + char change and miss the char change to both occuring
  */
 
 export function runLengthEncoding(string: string) {
@@ -20,18 +25,20 @@ export function runLengthEncoding(string: string) {
     let currChar = string[i];
     let lastChar = string[i - 1];
 
-    // max size hit
-    if (lastChar && currCount === MAX_COUNT) {
-      let encodedPart = `${currCount}${currChar}`;
-      runLengthEncoding += encodedPart;
-      currCount = 0;
-      //   char changes
-    } else if (lastChar && lastChar !== currChar) {
+    //   char changes
+    if (lastChar && lastChar !== currChar) {
       let encodedPart = `${currCount}${lastChar}`;
       runLengthEncoding += encodedPart;
       currCount = 0;
-      // end of string
-    } else if (i === string.length - 1) {
+      // max size hit
+    } else if (lastChar && currCount === MAX_COUNT) {
+      let encodedPart = `${currCount}${currChar}`;
+      runLengthEncoding += encodedPart;
+      currCount = 0;
+    }
+
+    // end of string
+    if (i === string.length - 1) {
       runLengthEncoding += `${currCount + 1}${currChar}`;
     }
 
@@ -40,5 +47,12 @@ export function runLengthEncoding(string: string) {
   return runLengthEncoding;
 }
 
-console.log(runLengthEncoding('AAAAAAAAAAAAABBCCCCDD'), '9A4A2B4C2D', '...');
+// console.log(runLengthEncoding('AAAAAAAAAAAAABBCCCCDD'), '9A4A2B4C2D');
 // console.log(runLengthEncoding('aA'), '1a1A');
+console.log(
+  runLengthEncoding('........______=========AAAA   AAABBBB   BBB'),
+  '8.6_9=4A3 3A4B3 3B',
+);
+
+console.log(runLengthEncoding('A===AAAA')); //8.6_9=4A3 3A4B3 3B
+// ===AAAA
