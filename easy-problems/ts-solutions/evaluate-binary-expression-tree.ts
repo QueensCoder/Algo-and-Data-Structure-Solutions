@@ -37,21 +37,27 @@ binaryTree.right.right = new BinaryTree(3);
 
 export function evaluateExpressionTree(tree: BinaryTree) {
   if (tree.value >= 0) return tree.value;
+  if (tree.left !== null && tree.right !== null) {
+    if (tree?.value === -1)
+      return (
+        evaluateExpressionTree(tree.left) + evaluateExpressionTree(tree.right)
+      );
+    else if (tree?.value === -2)
+      return (
+        evaluateExpressionTree(tree.left) - evaluateExpressionTree(tree.right)
+      );
+    else if (tree?.value === -3)
+      // we actually do not want to round but instead use Math.trunc to only get the integer part of the division
+      return Math.trunc(
+        evaluateExpressionTree(tree.left) / evaluateExpressionTree(tree.right),
+      );
+    else if (tree?.value === -4)
+      return (
+        evaluateExpressionTree(tree.left) * evaluateExpressionTree(tree.right)
+      );
+  }
 
-  if (tree.value === -1)
-    return (
-      evaluateExpressionTree(tree.left) + evaluateExpressionTree(tree.right)
-    );
-  else if (tree.value === -2)
-    return (
-      evaluateExpressionTree(tree.left) - evaluateExpressionTree(tree.right)
-    );
-  else if (tree.value === -3)
-    return Math.trunc(
-      evaluateExpressionTree(tree.left) / evaluateExpressionTree(tree.right),
-    );
-
-  return evaluateExpressionTree(tree.left) * evaluateExpressionTree(tree.right);
+  return tree.value;
 }
 
 console.log(evaluateExpressionTree(binaryTree)); // 3
