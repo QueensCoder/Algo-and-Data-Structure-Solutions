@@ -35,8 +35,7 @@ binaryTree.right.right = new BinaryTree(3);
 // -4 multiplication
 // This is an input class. Do not edit.
 
-export function evaluateExpressionTree(tree: BinaryTree) {
-  if (tree.value >= 0) return tree.value;
+export function evaluateExpressionTree(tree: BinaryTree): number {
   if (tree.left !== null && tree.right !== null) {
     if (tree?.value === -1)
       return (
@@ -47,7 +46,6 @@ export function evaluateExpressionTree(tree: BinaryTree) {
         evaluateExpressionTree(tree.left) - evaluateExpressionTree(tree.right)
       );
     else if (tree?.value === -3)
-      // we actually do not want to round but instead use Math.trunc to only get the integer part of the division
       return Math.trunc(
         evaluateExpressionTree(tree.left) / evaluateExpressionTree(tree.right),
       );
