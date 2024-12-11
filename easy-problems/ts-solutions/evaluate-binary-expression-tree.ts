@@ -21,11 +21,11 @@ binaryTree.left.left.right = new BinaryTree(3);
 binaryTree.right.left = new BinaryTree(8);
 binaryTree.right.right = new BinaryTree(3);
 
-//    -1
-//   /   \
-//  -2   -3
-//  / \  / \
-// -4 2  8 3
+//     -1
+//   /    \
+//  -2    -3
+//  /  \   / \
+// -4   2  8 3
 // /  \
 // 2   3
 
@@ -33,7 +33,20 @@ binaryTree.right.right = new BinaryTree(3);
 // -2 subtraction
 // -3 division
 // -4 multiplication
-// This is an input class. Do not edit.
+
+/**
+ * Approach
+ * if left and right nodes are not null, do not evaluate the values
+ *  Base case is return the value of the node, if the left and right nodes are null
+ * we need to set the return of tree.value at the end because typescript will complain
+ * math.trunc is more accurate vs math.floor here since we don't want any rounding
+ * never have to worry about a case where either the left or right node is null, its always a full tree
+ * so we don't need to check for null values of 1 node and the other being valid value
+ * if a tree is balance we need to consider that in our implementation
+ */
+
+// O(n) time | O(h) space where h is the height of the tree
+// whether we use recursion of a while loop using a stack for DFS, the space complexity is the same
 
 export function evaluateExpressionTree(tree: BinaryTree): number {
   if (tree.left !== null && tree.right !== null) {
@@ -58,4 +71,19 @@ export function evaluateExpressionTree(tree: BinaryTree): number {
   return tree.value;
 }
 
-console.log(evaluateExpressionTree(binaryTree)); // 3
+console.log(evaluateExpressionTree(binaryTree)); // 6
+
+// export function evaluateExpressionTreeIteration(tree: BinaryTree) {
+//   const stack = [tree];
+//   let totalValue = 0;
+//   while (stack.length) {
+//     let currentNode = stack.pop();
+//     if (currentNode?.left) stack.push(currentNode.left);
+//     if (currentNode?.right) stack.push(currentNode.right);
+//     console.log(currentNode?.value);
+//   }
+
+//   // return tree.value;
+// }
+
+// console.log(evaluateExpressionTreeIteration(binaryTree)); // 6
