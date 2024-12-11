@@ -23,7 +23,7 @@ export class Node {
 
       if (currentNode) array.push(currentNode?.name);
       if (currentNode?.children) {
-        queue.unshift(...currentNode.children);
+        queue.push(...currentNode.children);
       }
     }
     return array;
