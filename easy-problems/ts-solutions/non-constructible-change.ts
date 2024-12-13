@@ -17,7 +17,9 @@ export function nonConstructibleChangeBruteForce(coins: number[]) {
     if (totalChange + 1 < coin) return totalChange + 1;
     totalChange += coin;
   }
+  //   if we can create all the values up to totalChange + 1, then we can create totalChange + 1
+  return totalChange + 1;
 }
 
 console.log(nonConstructibleChangeBruteForce([5, 7, 1, 1, 2, 3, 22]));
-// console.log(nonConstructibleChangeBruteForce([2, 3]));
+console.log(nonConstructibleChangeBruteForce([1, 1, 1, 1, 1]));
