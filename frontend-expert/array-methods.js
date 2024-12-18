@@ -22,8 +22,9 @@ Array.prototype.myFilter = function (callback) {
 
 Array.prototype.myReduce = function (callback, initialValue) {
   if (!this.length) return initialValue;
-  let accumulator = initialValue || this[0];
-  let i = initialValue ? 0 : 1;
+  const hasInitialValue = initialValue || initialValue === 0;
+  let accumulator = hasInitialValue ? initialValue : this[0];
+  let i = hasInitialValue ? 0 : 1;
 
   for (i; i < this.length; i++) {
     const currentValue = this[i];
@@ -36,7 +37,13 @@ Array.prototype.myReduce = function (callback, initialValue) {
 
 // console.log([1, 2, 3].myFilter((x) => x > 1)); // [2, 3]
 
-console.log([1, 2, 3].myReduce((acc, curr) => acc + curr, 0)); // 6
-console.log([1, 2, 3].myReduce((acc, curr) => acc + curr)); // 6
+console.log(
+  [1, 2, 3].myReduce((acc, curr, i, obj) => {
+    // console.log(i, 'whats i');
+    return acc + curr;
+  }, 0),
+);
+// 6
+// console.log([1, 2, 3].myReduce((acc, curr) => acc + curr)); // 6
 
 // console.log([1, 2, 3].myReduce((acc, curr) => acc + curr, [])); // [1, 2, 3]
