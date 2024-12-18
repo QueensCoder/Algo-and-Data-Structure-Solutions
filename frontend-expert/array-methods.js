@@ -21,9 +21,22 @@ Array.prototype.myFilter = function (callback) {
 };
 
 Array.prototype.myReduce = function (callback, initialValue) {
-  // Write your code here.
+  if (!this.length) return initialValue;
+  let accumulator = initialValue || this[0];
+  let i = initialValue ? 0 : 1;
+
+  for (i; i < this.length; i++) {
+    const currentValue = this[i];
+    accumulator = callback(accumulator, currentValue, i, this);
+  }
+  return accumulator;
 };
 
-console.log([1, 2, 3].myMap((x) => x * 2)); // [2, 4, 6]
+// console.log([1, 2, 3].myMap((x) => x * 2)); // [2, 4, 6]
 
-console.log([1, 2, 3].myFilter((x) => x > 1)); // [2, 3]
+// console.log([1, 2, 3].myFilter((x) => x > 1)); // [2, 3]
+
+console.log([1, 2, 3].myReduce((acc, curr) => acc + curr, 0)); // 6
+console.log([1, 2, 3].myReduce((acc, curr) => acc + curr)); // 6
+
+// console.log([1, 2, 3].myReduce((acc, curr) => acc + curr, [])); // [1, 2, 3]
