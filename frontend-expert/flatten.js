@@ -1,32 +1,19 @@
 function flattenArray(arr) {
-  if (arr === null || !Array.isArray(arr)) return arr;
-  return arr.reduce((acc, item) => {
-    if (Array.isArray(item)) {
-      return acc.concat(flattenArray(item));
-    } else if (!Array.isArray(item) && typeof item === 'object') {
-      return acc.concat(flattenObject(item));
-    }
-    return acc.concat(item);
-  }, []);
+  return arr.reduce((acc, item) => acc.concat(flatten(item)), []);
 }
 
 function flattenObject(obj) {
-  let result = {};
-  if (obj === null || typeof obj !== 'object') return obj;
-
-  for (const key in obj) {
+  let returnObj = {};
+  for (let key in obj) {
     let value = obj[key];
-    if (!Array.isArray(value) && typeof value === 'object') {
-      let flattendObj = flattenObject(value);
-      result = { ...result, ...flattendObj };
-    } else if (Array.isArray(value)) {
-      let flattendArr = flattenArray(value);
-      result = { ...result, [key]: flattendArr };
+    const flattenValue = flatten(value);
+    if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+      returnObj = { ...returnObj, ...flattenValue };
     } else {
-      result[key] = value;
+      returnObj[key] = flattenValue;
     }
   }
-  return result;
+  return returnObj;
 }
 
 function flatten(value) {
