@@ -1,6 +1,13 @@
 //must pair each red + blue shirt together
 // returns the max possible total speed or min total speed for all the tandem bicycles being ridden based on the fastest parameter
 // total speed = sum(speeds) of the tandem bicycle
+
+// for fastest, sort red asc, and blue desc
+// for slowest, sort red asc, and blue asc
+
+// higher number dictates the speed of the tandem bicycle
+// sorting these arrays will allow us to pair the fastest red shirt with the slowest blue shirt and the fastest blue shirt with the fastest red shirt
+
 export function tandemBicycle(
   redShirtSpeeds: number[],
   blueShirtSpeeds: number[],
