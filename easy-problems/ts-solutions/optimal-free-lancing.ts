@@ -13,23 +13,28 @@ export function optimalFreelancing(jobs: Record<string, number>[]) {
 
   let i = 0;
 
+  console.log(jobs);
   while (sevenDays > 0 && i < jobs.length) {
     let job = jobs[i];
-    console.log(job);
     const { deadline, payment } = job;
 
     if (
-      !jobsWithDeadlinesAndPaymentsOrganized[deadline] ||
-      jobsWithDeadlinesAndPaymentsOrganized[deadline] < deadline
+      jobsWithDeadlinesAndPaymentsOrganized[deadline] < deadline ||
+      !jobsWithDeadlinesAndPaymentsOrganized[deadline]
     ) {
       jobsWithDeadlinesAndPaymentsOrganized[deadline] =
         jobsWithDeadlinesAndPaymentsOrganized[deadline] + 1 || 1;
       totalPayment += payment;
-    }
 
+      for (let j = deadline + 1; j <= 7; j++) {
+        jobsWithDeadlinesAndPaymentsOrganized[j] =
+          jobsWithDeadlinesAndPaymentsOrganized[j] + 1 || 1;
+      }
+    }
     i++;
     sevenDays--;
   }
+
   return totalPayment;
 }
 
@@ -58,19 +63,19 @@ export function optimalFreelancing(jobs: Record<string, number>[]) {
 //   ]),
 // );
 
-// console.log(
-//   optimalFreelancing([
-//     { deadline: 1, payment: 4 },
-//     { deadline: 1, payment: 3 },
-//     { deadline: 2, payment: 1 },
-//     { deadline: 3, payment: 2 },
-//     { deadline: 4, payment: 1 },
-//     { deadline: 4, payment: 2 },
-//     { deadline: 4, payment: 3 },
-//     { deadline: 5, payment: 4 },
-//     { deadline: 8, payment: 1 },
-//   ]),
-// ); //16
+console.log(
+  optimalFreelancing([
+    { deadline: 5, payment: 4 },
+    { deadline: 1, payment: 4 },
+    { deadline: 1, payment: 3 },
+    { deadline: 2, payment: 1 },
+    { deadline: 3, payment: 2 },
+    { deadline: 4, payment: 1 },
+    { deadline: 4, payment: 2 },
+    { deadline: 4, payment: 3 },
+    { deadline: 8, payment: 1 },
+  ]),
+); //16
 
 console.log(
   optimalFreelancing([
