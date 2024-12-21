@@ -9,37 +9,26 @@ export function optimalFreelancing(jobs: Record<string, number>[]) {
 
   // get highest payout for each deadline
   const jobsWithDeadlinesAndPaymentsOrganized: Record<string, number> = {};
-  jobs.forEach((job) => {
+  jobs.sort((a, b) => b.payment - a.payment);
+
+  let i = 0;
+
+  while (sevenDays > 0 && i < jobs.length) {
+    let job = jobs[i];
+    console.log(job);
     const { deadline, payment } = job;
-    console.log(deadline, payment);
-    let currJob = jobsWithDeadlinesAndPaymentsOrganized[deadline];
 
-    if (!currJob) jobsWithDeadlinesAndPaymentsOrganized[deadline] = payment;
-    else if (currJob < payment) {
-      jobsWithDeadlinesAndPaymentsOrganized[deadline] = payment;
+    if (
+      !jobsWithDeadlinesAndPaymentsOrganized[deadline] ||
+      jobsWithDeadlinesAndPaymentsOrganized[deadline] < deadline
+    ) {
+      jobsWithDeadlinesAndPaymentsOrganized[deadline] =
+        jobsWithDeadlinesAndPaymentsOrganized[deadline] + 1 || 1;
+      totalPayment += payment;
     }
-  });
 
-  const deadlinesModified: Record<string, number>[] = [];
-
-  Object.keys(jobsWithDeadlinesAndPaymentsOrganized).forEach((key) => {
-    deadlinesModified.push({
-      deadline: parseInt(key),
-      payment: jobsWithDeadlinesAndPaymentsOrganized[key],
-    });
-  });
-
-  deadlinesModified.sort((a, b) => a.deadline - b.deadline);
-
-  console.log(deadlinesModified, '...');
-
-  for (let i = 0; i < deadlinesModified.length; i++) {
-    if (sevenDays === 0) break;
+    i++;
     sevenDays--;
-    totalPayment +=
-      deadlinesModified[i].deadline < sevenDays
-        ? deadlinesModified[i].payment
-        : 0;
   }
   return totalPayment;
 }
@@ -69,16 +58,24 @@ export function optimalFreelancing(jobs: Record<string, number>[]) {
 //   ]),
 // );
 
+// console.log(
+//   optimalFreelancing([
+//     { deadline: 1, payment: 4 },
+//     { deadline: 1, payment: 3 },
+//     { deadline: 2, payment: 1 },
+//     { deadline: 3, payment: 2 },
+//     { deadline: 4, payment: 1 },
+//     { deadline: 4, payment: 2 },
+//     { deadline: 4, payment: 3 },
+//     { deadline: 5, payment: 4 },
+//     { deadline: 8, payment: 1 },
+//   ]),
+// ); //16
+
 console.log(
   optimalFreelancing([
-    { deadline: 1, payment: 4 },
-    { deadline: 1, payment: 3 },
+    { deadline: 2, payment: 2 },
+    { deadline: 1, payment: 1 },
     { deadline: 2, payment: 1 },
-    { deadline: 3, payment: 2 },
-    { deadline: 4, payment: 1 },
-    { deadline: 4, payment: 2 },
-    { deadline: 4, payment: 3 },
-    { deadline: 5, payment: 4 },
-    { deadline: 8, payment: 1 },
   ]),
-); //16
+);
