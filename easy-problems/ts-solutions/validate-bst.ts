@@ -27,16 +27,9 @@ export function validateBstHelper(
 }
 
 export function validateBst(tree: BST): boolean {
-  const { left, right, value } = tree;
-
   const min = -Infinity;
   const max = Infinity;
   return validateBstHelper(tree, min, max);
-
-  //   if (left && left.value >= value) return false;
-  //   const leftIsValid = left ? validateBst(left) : true;
-  //   const rightIsValid = right ? validateBst(right) : true;
-  //   return leftIsValid && rightIsValid;
 }
 
 const tree = new BST(10);
