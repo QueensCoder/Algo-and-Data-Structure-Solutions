@@ -8,12 +8,15 @@ export function optimalFreelancing(jobs: Record<string, number>[]) {
   let sevenDays = 7;
 
   // get highest payout for each deadline
+  // O(7) - drop constant here
   const jobsWithDeadlinesAndPaymentsOrganized: Record<string, number> = {};
+
+  // O(nlogn)
   jobs.sort((a, b) => b.payment - a.payment);
 
   let i = 0;
 
-  console.log(jobs);
+  // O(7)
   while (sevenDays > 0 && i < jobs.length) {
     let job = jobs[i];
     const { deadline, payment } = job;
@@ -26,6 +29,7 @@ export function optimalFreelancing(jobs: Record<string, number>[]) {
         jobsWithDeadlinesAndPaymentsOrganized[deadline] + 1 || 1;
       totalPayment += payment;
 
+      // O(7) - since its constant we drop it
       for (let j = deadline + 1; j <= 7; j++) {
         jobsWithDeadlinesAndPaymentsOrganized[j] =
           jobsWithDeadlinesAndPaymentsOrganized[j] + 1 || 1;
