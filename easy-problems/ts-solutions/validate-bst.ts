@@ -12,29 +12,23 @@ class BST {
 
 export function validateBstHelper(
   tree: BST | null,
-  min: number | null,
-  max: number | null,
+  min: number,
+  max: number,
 ): boolean {
   if (!tree) return true;
   const { left, right, value } = tree;
-  //   if no tree we've reached the end of the tree
 
-  //   left
-  //   min < value <= max
+  if (value >= max) return false;
+  if (value < min) return false;
 
-  if (value < min || value >= max) return false;
-  const leftSubtree = left
-    ? validateBstHelper(tree.left, value, tree?.left?.value)
-    : true;
-  const rightSubtree = right
-    ? validateBstHelper(tree.right, value, tree.right?.value)
-    : true;
+  const leftSubtree = left ? validateBstHelper(tree.left, min, value) : true;
+  const rightSubtree = right ? validateBstHelper(tree.right, value, max) : true;
   return leftSubtree && rightSubtree;
 }
 
 export function validateBst(tree: BST): boolean {
   const { left, right, value } = tree;
-  console.log(value, left?.value, right?.value);
+
   const min = -Infinity;
   const max = Infinity;
   return validateBstHelper(tree, min, max);
