@@ -15,6 +15,7 @@
 const validateHelper = (tree, min, max) => {
   if (!tree) return true;
   const { value, left, right } = tree;
+  // min < value <= max
   if (value < min || value >= max) return false;
   return validateHelper(left, min, value) && validateHelper(right, value, max);
 };

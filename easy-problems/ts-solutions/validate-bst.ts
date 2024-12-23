@@ -10,15 +10,39 @@ class BST {
   }
 }
 
+export function validateBstHelper(
+  tree: BST | null,
+  min: number | null,
+  max: number | null,
+): boolean {
+  if (!tree) return true;
+  const { left, right, value } = tree;
+  //   if no tree we've reached the end of the tree
+
+  //   left
+  //   min < value <= max
+
+  if (value < min || value >= max) return false;
+  const leftSubtree = left
+    ? validateBstHelper(tree.left, value, tree?.left?.value)
+    : true;
+  const rightSubtree = right
+    ? validateBstHelper(tree.right, value, tree.right?.value)
+    : true;
+  return leftSubtree && rightSubtree;
+}
+
 export function validateBst(tree: BST): boolean {
   const { left, right, value } = tree;
   console.log(value, left?.value, right?.value);
+  const min = -Infinity;
+  const max = Infinity;
+  return validateBstHelper(tree, min, max);
 
-  if (left && left.value >= value) return false;
-  if (right && right.value < value) return false;
-  const leftIsValid = left ? validateBst(left) : true;
-  const rightIsValid = right ? validateBst(right) : true;
-  return leftIsValid && rightIsValid;
+  //   if (left && left.value >= value) return false;
+  //   const leftIsValid = left ? validateBst(left) : true;
+  //   const rightIsValid = right ? validateBst(right) : true;
+  //   return leftIsValid && rightIsValid;
 }
 
 const tree = new BST(10);
