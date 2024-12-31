@@ -68,3 +68,4 @@ console.log(validateBst(tree2));
 // -inf < 5 < 10 - good
 // 5 < 10 < 10 - bad
 // left subtree has a node that is greater than parent node of left subtree
+
