@@ -1,5 +1,5 @@
 // O(nlogn) time, O(n) space
-export function missingNumbers(nums: number[]) {
+export function missingNumbersBruteForce(nums: number[]) {
   if (!nums.length) return [1, 2];
   if (nums.length === 1) {
     const firstThree = [1, 2, 3];
@@ -22,6 +22,27 @@ export function missingNumbers(nums: number[]) {
   }
 
   return result;
+}
+
+// console.log(missingNumbersBruteForce([]));
+// console.log(missingNumbersBruteForce([1]));
+// console.log(missingNumbersBruteForce([1, 4, 3]));
+// console.log(
+//   missingNumbersBruteForce([
+//     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+//     22,
+//   ]),
+// );
+
+// O(n) time, O(1) space
+export function missingNumbers(nums: number[]) {
+  if (!nums.length) return [1, 2];
+  if (nums.length === 1) {
+    const firstThree = [1, 2, 3];
+
+    const solo = nums[0];
+    return firstThree.filter((num) => num !== solo);
+  }
 }
 
 console.log(missingNumbers([]));
