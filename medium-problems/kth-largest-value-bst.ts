@@ -38,21 +38,22 @@ tree.right.right = new BST(22);
 
 // console.log(findKthLargestValueInBstBruteForce(tree, 3)); // 17
 
-export const findKthHelper = (tree: BST) => {
-  const result: number[] = [];
-
-  if (!tree) return result;
-  if (tree.left) result.push(...findKthHelperDFSInOrder(tree.left));
-  result.push(tree.value);
-  if (tree.right) result.push(...findKthHelperDFSInOrder(tree.right));
-
-  return result;
+// optimal solution using DFS in order traversal O(h + k) time | O(n) space
+export const findKthHelperDFSOptimal = (
+  tree: BST,
+  sortedNodes: number[],
+  k: number,
+) => {
+  if (sortedNodes.length === k) return;
+  if (tree.right) findKthHelperDFSOptimal(tree.right, sortedNodes, k);
+  sortedNodes.push(tree.value);
+  if (tree.left) findKthHelperDFSOptimal(tree.left, sortedNodes, k);
 };
 
-// Brute force using DFS in order traversal O(n) time | O(n) space
 export function findKthLargestValueInBst(tree: BST, k: number) {
-  //   const result = findKthHelper(tree);
-  //   return result[result.length - k];
+  const sortedNodes: number[] = [];
+  findKthHelperDFSOptimal(tree, sortedNodes, k);
+  return sortedNodes[k - 1];
 }
 
-console.log(findKthLargestValueInBst(tree, 3)); // 17
+console.log(findKthLargestValueInBst(tree, 3), 'result'); // 17
