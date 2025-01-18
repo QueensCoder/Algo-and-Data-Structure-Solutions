@@ -27,6 +27,8 @@ export const zeroSumSubarrayOptimal = (nums: number[]) => {
     sums.push(sum);
     if (seen.has(sum)) return true;
     else seen.add(sum);
+
+    if (sum === 0 && i) return true;
   }
   return false;
 };
