@@ -17,20 +17,19 @@ export class BinaryTree {
 const findSuccessorHelper = (
   tree: BinaryTree | null,
   node: BinaryTree,
-  nodes: number[],
+  nodes: BinaryTree[],
 ) => {
   if (!tree) return;
-
+  if (nodes[nodes.length - 2] === node) return;
   findSuccessorHelper(tree.left, node, nodes);
-  nodes.push(tree.value);
+  nodes.push(tree);
   findSuccessorHelper(tree.right, node, nodes);
 };
 
 export function findSuccessor(tree: BinaryTree, node: BinaryTree) {
-  const nodes: number[] = [];
+  const nodes: BinaryTree[] = [];
   findSuccessorHelper(tree, node, nodes);
-
-  return nodes[nodes.indexOf(node.value) + 1];
+  return nodes[nodes.length - 1].value || null;
 }
 
 const tree = new BinaryTree(1);
