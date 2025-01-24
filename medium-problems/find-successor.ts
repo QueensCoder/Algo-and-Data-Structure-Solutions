@@ -20,7 +20,6 @@ const findSuccessorHelper = (
   nodes: BinaryTree[],
 ) => {
   if (!tree) return;
-  if (nodes[nodes.length - 2] === node) return;
   findSuccessorHelper(tree.left, node, nodes);
   nodes.push(tree);
   findSuccessorHelper(tree.right, node, nodes);
@@ -29,7 +28,12 @@ const findSuccessorHelper = (
 export function findSuccessor(tree: BinaryTree, node: BinaryTree) {
   const nodes: BinaryTree[] = [];
   findSuccessorHelper(tree, node, nodes);
-  return nodes[nodes.length - 1].value || null;
+
+  let foundNode: BinaryTree | null = null;
+  nodes.forEach((item, i) => {
+    if (item === node && nodes[i + 1]) foundNode = nodes[i + 1];
+  });
+  return foundNode;
 }
 
 const tree = new BinaryTree(1);
@@ -45,4 +49,19 @@ tree.left.left.left = new BinaryTree(6);
 tree.left.left.left.parent = tree.left.left;
 const node = tree.left.right;
 
-console.log(findSuccessor(tree, node));
+// console.log(findSuccessor(tree, node));
+
+export function findSuccessorOptimized(tree: BinaryTree, node: BinaryTree) {
+  const nodes: BinaryTree[] = [];
+  let found = false
+  while(!found) {
+	if(node === tree) 
+  }
+  return node;
+}
+
+console.log(findSuccessorOptimized(tree, node));
+
+// when using in-order traversal the order is
+// 6 -> 4 -> 2 -> 5 -> 1 -> 3
+// first look at the right node, if no right node get the parent node, if parent node has been visited get the parents parent and continue
