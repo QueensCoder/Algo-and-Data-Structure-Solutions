@@ -53,9 +53,11 @@ const node = tree.left.right;
 
 export function findSuccessorOptimized(tree: BinaryTree, node: BinaryTree) {
   const nodes: BinaryTree[] = [];
-  let found = false
-  while(!found) {
-	if(node === tree) 
+  let found = false;
+  while (!found) {
+    if (node === tree) {
+      break;
+    }
   }
   return node;
 }
