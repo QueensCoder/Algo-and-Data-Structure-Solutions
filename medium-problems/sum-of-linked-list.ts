@@ -27,10 +27,22 @@ export function sumOfLinkedLists(
   let rawSumOne = traverseLinkedList(linkedListOne);
   let rawSumTwo = traverseLinkedList(linkedListTwo);
 
-  console.log(rawSumOne, rawSumTwo);
+  const totalSum = parseInt(rawSumOne) + parseInt(rawSumTwo);
+  const totalSumReversed = String(totalSum)
+    .split('')
+    .reverse()
+    .map((str) => parseInt(str));
 
-  // Write your code here.
-  //   return linkedListOne;
+  const newLinkedList = new LinkedList(totalSumReversed[0]);
+  let currNode = newLinkedList;
+  for (let i = 1; i < totalSumReversed.length; i++) {
+    let currNum = totalSumReversed[i];
+    let newNode = new LinkedList(currNum);
+    currNode.next = newNode;
+    currNode = newNode;
+  }
+
+  return newLinkedList;
 }
 
 const linkedListOne = new LinkedList(2);
