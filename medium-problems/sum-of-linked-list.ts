@@ -9,12 +9,28 @@ export class LinkedList {
   }
 }
 
+const traverseLinkedList = (linkedList: LinkedList) => {
+  let currNode: LinkedList | null = linkedList;
+  let rawSum = '';
+
+  while (currNode) {
+    rawSum = currNode.value + rawSum;
+    currNode = currNode.next;
+  }
+  return rawSum;
+};
+
 export function sumOfLinkedLists(
   linkedListOne: LinkedList,
   linkedListTwo: LinkedList,
 ) {
+  let rawSumOne = traverseLinkedList(linkedListOne);
+  let rawSumTwo = traverseLinkedList(linkedListTwo);
+
+  console.log(rawSumOne, rawSumTwo);
+
   // Write your code here.
-  return linkedListOne;
+  //   return linkedListOne;
 }
 
 const linkedListOne = new LinkedList(2);
