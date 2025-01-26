@@ -9,6 +9,7 @@ export class LinkedList {
   }
 }
 
+// O(n) time, O(n) space
 const traverseLinkedList = (linkedList: LinkedList) => {
   let currNode: LinkedList | null = linkedList;
   let rawSum = '';
@@ -20,6 +21,7 @@ const traverseLinkedList = (linkedList: LinkedList) => {
   return rawSum;
 };
 
+// O(n) time, O(n) space
 export function sumOfLinkedLists(
   linkedListOne: LinkedList,
   linkedListTwo: LinkedList,
