@@ -1,64 +1,59 @@
 export class UnionFind {
-  tree: { [key: number]: Set<number> } = {};
+  // key is node, value is parent of that node
+  tree: { [key: number]: number | null } = {};
 
   constructor() {
     this.tree = {};
   }
 
   createSet(value: number) {
-    if (this.tree[value] === undefined) this.tree[value] = new Set();
+    if (this.tree[value] === undefined) this.tree[value] = null;
     return null;
   }
 
-  find(value: number): number | undefined {
-    if (this.tree[value] !== undefined) return value;
-    else {
-      const foundKey = Object.keys(this.tree)
-        .map(Number) // Convert keys to numbers
-        .find((key: number) => this.tree[key].has(value));
-      return foundKey;
+  find(value: number) {
+    let parentNode = this.tree[value];
+    if (parentNode === null) return value;
+    if (parentNode === undefined) return null;
+
+    let currentnode = value;
+    while (parentNode !== null) {
+      currentnode = parentNode;
+      parentNode = this.tree[parentNode];
     }
+    return currentnode;
   }
 
   union(valueOne: number, valueTwo: number) {
-    const unionOne = this.tree[valueOne];
-    const unionTwo = this.tree[valueTwo];
+    let valueTwoParent = this.tree[valueTwo];
 
-    if (!unionOne || !unionTwo) return null;
-
-    if (!unionTwo) {
-      const foundKey = Object.keys(this.tree)
-        .map(Number) // Convert keys to numbers
-        .find((key: number) => this.tree[key].has(valueTwo));
-
-      if (!foundKey) unionOne.add(valueTwo);
-      else {
-        this.tree[foundKey].add(valueTwo);
-      }
-    } else {
-      this.tree[valueOne] = new Set([...unionOne, ...unionTwo, valueTwo]);
-      delete this.tree[valueTwo];
+    while (valueTwoParent !== null) {
+      valueTwoParent = this.tree[valueTwoParent];
     }
+
+    this.tree[valueTwo] = valueOne;
 
     return null;
   }
 }
 
 const unionFind = new UnionFind();
-console.log(unionFind.createSet(0));
-console.log(unionFind.createSet(2));
-console.log(unionFind.union(0, 2));
-console.log(unionFind.createSet(3));
-console.log(unionFind.createSet(1));
-console.log(unionFind.union(1, 3));
-console.log(unionFind.find(0), 'should be 0');
-console.log(unionFind.find(1), 'should be 1');
-console.log(unionFind.find(2), 'should be 0');
-console.log(unionFind.find(3), 'should be 1');
-console.log(unionFind.union(3, 0));
-console.log(unionFind.find(0), 'should be 1');
 
-console.log(unionFind.tree);
+// solved
+// console.log(unionFind.createSet(0));
+// console.log(unionFind.createSet(2));
+// console.log(unionFind.union(0, 2));
+// console.log(unionFind.createSet(3));
+// console.log(unionFind.createSet(1));
+// console.log(unionFind.union(1, 3));
+// console.log(unionFind.find(0), 'should be 0');
+// console.log(unionFind.find(1), 'should be 1');
+// console.log(unionFind.find(2), 'should be 0');
+// console.log(unionFind.find(3), 'should be 1');
+// console.log(unionFind.union(3, 0));
+// console.log(unionFind.find(0), 'should be 1');
+
+// console.log(unionFind.tree);
 
 // simple tests word
 // console.log(unionFind.createSet(3));
