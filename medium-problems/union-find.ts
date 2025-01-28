@@ -1,20 +1,21 @@
 export class UnionFind {
   tree: { [key: number]: Set<number> } = {};
+
   constructor() {
     this.tree = {};
   }
 
   createSet(value: number) {
-    this.tree[value] = new Set();
+    if (!this.tree[value]) this.tree[value] = new Set();
     return null;
   }
 
-  find(value: number) {
+  find(value: number): number | undefined {
     if (this.tree[value]) return value;
     else {
-      const foundKey = Object.keys(this.tree).find((key) =>
-        this.tree[key].has(value),
-      );
+      const foundKey = Object.keys(this.tree)
+        .map(Number) // Convert keys to numbers
+        .find((key: number) => this.tree[key].has(value));
       return foundKey;
     }
   }
@@ -23,7 +24,8 @@ export class UnionFind {
     const unionOne = this.tree[valueOne];
     const unionTwo = this.tree[valueTwo];
 
-    console.log(unionOne, unionTwo);
+    if (!unionOne || !unionTwo) return null;
+
     if (!unionTwo) {
       unionOne.add(valueTwo);
     } else {
@@ -36,13 +38,15 @@ export class UnionFind {
 }
 
 const unionFind = new UnionFind();
-console.log(unionFind.createSet(3));
-console.log(unionFind.createSet(6));
-console.log(unionFind.union(3, 6));
-console.log(unionFind.find(6));
+// simple tests word
+// console.log(unionFind.createSet(3));
+// console.log(unionFind.createSet(6));
+// console.log(unionFind.union(3, 6));
+// console.log(unionFind.find(6));
 // console.log(unionFind.find(3));
 // console.log(unionFind.createSet(2));
 // console.log(unionFind.union(2, 6));
+// console.log(unionFind.find(6));
 
 // const testSet = new Set();
 // const testSet2 = new Set();
