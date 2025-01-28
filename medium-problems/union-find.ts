@@ -25,7 +25,18 @@ export class UnionFind {
   }
 
   union(valueOne: number, valueTwo: number) {
+    let valueOneParent = this.tree[valueOne];
     let valueTwoParent = this.tree[valueTwo];
+
+    if (valueOneParent === valueTwo || valueTwoParent === valueOne) return null;
+
+    if (valueOneParent === undefined || valueTwoParent === undefined)
+      return null;
+
+    if (valueTwoParent === null) {
+      this.tree[valueTwo] = valueOne;
+      return null;
+    }
 
     while (valueTwoParent !== null) {
       valueTwoParent = this.tree[valueTwoParent];
@@ -38,6 +49,29 @@ export class UnionFind {
 }
 
 const unionFind = new UnionFind();
+console.log(unionFind.createSet(0));
+console.log(unionFind.createSet(1));
+console.log(unionFind.find(0), 'should be 0');
+console.log(unionFind.find(1), 'should be 1');
+console.log(unionFind.union(0, 2));
+console.log(unionFind.find(0), 'should be 0');
+console.log(unionFind.find(1), 'should be 1');
+console.log(unionFind.union(0, 1), 'ull');
+console.log(unionFind.union(1, 0), 'null');
+console.log('hello world');
+// console.log(unionFind.find(0), 'should be 0....');
+// console.log(unionFind.find(1), 'should be 0..');
+
+// solved
+// console.log(unionFind.createSet(10));
+// console.log(unionFind.createSet(5));
+// console.log(unionFind.find(10), 'should be 10');
+// console.log(unionFind.find(5), 'should be 5');
+// console.log(unionFind.union(10, 5));
+// console.log(unionFind.find(10), 'should be 10');
+// console.log(unionFind.find(5), 'should be 10');
+
+// console.log(unionFind.tree);
 
 // solved
 // console.log(unionFind.createSet(0));
