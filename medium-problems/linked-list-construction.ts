@@ -19,9 +19,28 @@ export class DoublyLinkedList {
     this.tail = null;
   }
 
-  setHead(node: Node) {}
+  setHead(node: Node) {
+    // if no head, there is no tail set head and tail to same node
+    if (!this.head) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      const oldHead = this.head;
+      oldHead.prev = node;
+      this.head = node;
+    }
+  }
 
-  setTail(node: Node) {}
+  setTail(node: Node) {
+    if (!this.tail) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      const oldHead = this.tail;
+      oldHead.next = node;
+      this.tail = node;
+    }
+  }
 
   insertBefore(node: Node, nodeToInsert: Node) {}
 
