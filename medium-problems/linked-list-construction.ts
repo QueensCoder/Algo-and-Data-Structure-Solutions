@@ -51,12 +51,10 @@ export class DoublyLinkedList {
   removeNodesWithValue(value: number) {}
 
   remove(node: Node) {
-    let currNode = this.head;
     // if only 1 node in LL, set head and tail to null
-    if (this.head === this.tail && currNode === node) {
+    if (this.head === this.tail && this.head === node) {
       this.head = null;
       this.tail = null;
-      return;
     }
     // if head removed, set new head and new head has no previous
     else if (this.head === node) {
@@ -71,6 +69,22 @@ export class DoublyLinkedList {
       this.tail = oldTail.prev;
       if (oldTail.prev) {
         oldTail.prev.next = null;
+      }
+    } else {
+      // node is not head or tail and somewhere inside of the LL
+      let currNode = this.head?.next; //start after head since we already evaluated the head
+
+      while (currNode) {
+        if (currNode === node) {
+          const prev = currNode.prev;
+          const next = currNode.next;
+
+          if (prev) prev.next = next;
+          if (next) next.prev = prev;
+
+          return;
+        }
+        currNode = currNode.next;
       }
     }
   }
@@ -122,21 +136,29 @@ node5.prev = node4;
 // console.log(doublyLinkedList.tail.value, 8);
 
 // remove head, expect new head to be set
-doublyLinkedList.remove(node1);
-console.log(
-  doublyLinkedList.head.value,
-  doublyLinkedList.head.prev,
-  doublyLinkedList.head.next?.value,
-  doublyLinkedList.head.next?.prev?.value,
-);
+// doublyLinkedList.remove(node1);
+// console.log(
+//   doublyLinkedList.head.value,
+//   doublyLinkedList.head.prev,
+//   doublyLinkedList.head.next?.value,
+//   doublyLinkedList.head.next?.prev?.value,
+// );
 
-// remove tail, expect new tail to be set
-console.log(doublyLinkedList.remove(node5));
+// // remove tail, expect new tail to be set
+// console.log(doublyLinkedList.remove(node5));
+// console.log(
+//   doublyLinkedList.tail.value,
+//   doublyLinkedList.tail.next,
+//   doublyLinkedList.tail.prev?.value,
+//   doublyLinkedList.tail.prev?.next?.value,
+// );
+
+// remove middle node, 3
+console.log(doublyLinkedList.remove(node3));
 console.log(
-  doublyLinkedList.tail.value,
-  doublyLinkedList.tail.next,
-  doublyLinkedList.tail.prev?.value,
-  doublyLinkedList.tail.prev?.next?.value,
+  doublyLinkedList.containsNodeWithValue(3),
+  node2.next.value,
+  node4.prev.value,
 );
 
 // remove node in the middle, expect prev.next to point to curr.next and next.prev to point to curr.prev
