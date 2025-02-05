@@ -53,7 +53,6 @@ export class DoublyLinkedList {
     let currNode = this.head?.next;
     while (currNode) {
       if (currNode === node) {
-        // console.log(currNode.value, nodeToInsert.value, 'got here');
         const prev = currNode.prev;
 
         if (prev) {
@@ -69,7 +68,29 @@ export class DoublyLinkedList {
     }
   }
 
-  insertAfter(node: Node, nodeToInsert: Node) {}
+  insertAfter(node: Node, nodeToInsert: Node) {
+    if (this.tail === node) {
+      this.setTail(nodeToInsert);
+      return;
+    }
+
+    let currNode = this.tail?.prev;
+    while (currNode) {
+      if (currNode === node) {
+        const prev = currNode.prev;
+
+        if (prev) {
+          prev.next = nodeToInsert;
+          nodeToInsert.prev = prev;
+        }
+
+        nodeToInsert.next = currNode;
+        currNode.prev = nodeToInsert;
+        return;
+      }
+      currNode = currNode.prev;
+    }
+  }
 
   insertAtPosition(position: number, nodeToInsert: Node) {}
 
