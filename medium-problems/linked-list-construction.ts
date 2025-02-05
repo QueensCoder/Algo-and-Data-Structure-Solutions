@@ -53,6 +53,7 @@ export class DoublyLinkedList {
     let currNode = this.head?.next;
     while (currNode) {
       if (currNode === node) {
+        // console.log(currNode.value, nodeToInsert.value, 'got here');
         const prev = currNode.prev;
 
         if (prev) {
@@ -185,22 +186,21 @@ node5.prev = node4;
 //   node4.prev.value,
 // );
 
-// console.log(doublyLinkedList.tail.value, 8);
-
 // insert before head
-doublyLinkedList.insertBefore(node1, node8);
-console.log(
-  doublyLinkedList.head.value,
-  doublyLinkedList.head.next?.value,
-  doublyLinkedList.head.next?.prev?.value,
-);
+// doublyLinkedList.insertBefore(node1, node8);
+// console.log(
+//   doublyLinkedList.head.value,
+//   doublyLinkedList.head.next?.value,
+//   doublyLinkedList.head.next?.prev?.value,
+// );
 
 // insert before in the middle
-// console.log(
-//   doublyLinkedList.containsNodeWithValue(8),
-//   node8.prev,
-//   node8.next,
-//   node6.prev,
-// );
+doublyLinkedList.insertBefore(node5, node8);
+console.log(
+  doublyLinkedList.containsNodeWithValue(8),
+  node8.prev?.value,
+  node8.next?.value,
+  node5.prev?.value,
+);
 
 // console.log(doublyLinkedList.head.value, 6);
