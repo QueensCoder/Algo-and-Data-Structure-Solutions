@@ -111,7 +111,16 @@ export class DoublyLinkedList {
     }
   }
 
-  removeNodesWithValue(value: number) {}
+  removeNodesWithValue(value: number) {
+    let currNode = this.head;
+    while (currNode) {
+      let currValue = currNode.value;
+      if (value === currValue) {
+        this.remove(currNode);
+      }
+      currNode = currNode.next;
+    }
+  }
 
   remove(node: Node) {
     // if only 1 node in LL, set head and tail to null
@@ -281,11 +290,24 @@ node5.prev = node4;
 // );
 
 // insert at position middle
-doublyLinkedList.insertAtPosition(2, node6);
+// doublyLinkedList.insertAtPosition(2, node6);
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(6),
+//   node6.prev?.value,
+//   node6.next?.value,
+//   node6.prev?.next?.value,
+//   node6.next?.prev?.value,
+// );
+
+const newNode3A = new Node(3);
+const newNode3B = new Node(3);
+doublyLinkedList.setHead(newNode3A);
+doublyLinkedList.setTail(newNode3B);
+
+// multiple remove
+doublyLinkedList.removeNodesWithValue(3);
 console.log(
-  doublyLinkedList.containsNodeWithValue(6),
-  node6.prev?.value,
-  node6.next?.value,
-  node6.prev?.next?.value,
-  node6.next?.prev?.value,
+  doublyLinkedList.containsNodeWithValue(3),
+  doublyLinkedList.head.value,
+  doublyLinkedList.tail.value,
 );
