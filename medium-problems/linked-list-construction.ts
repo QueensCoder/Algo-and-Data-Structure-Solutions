@@ -80,7 +80,7 @@ export class DoublyLinkedList {
         const next = currNode.next;
 
         if (next) {
-          next.next = nodeToInsert;
+          next.prev = nodeToInsert;
           nodeToInsert.next = next;
         }
 
@@ -233,12 +233,12 @@ node5.prev = node4;
 //   doublyLinkedList.tail.prev?.value,
 // );
 
-// // insert after in the middle
+// insert after in the middle
 // doublyLinkedList.insertAfter(node4, node6);
 // console.log(
-//   doublyLinkedList.containsNodeWithValue(8),
-//   node8.prev?.value,
-//   node8.next?.value,
-//   node5.prev?.value,
+//   doublyLinkedList.containsNodeWithValue(6),
+//   node6.prev?.value,
+//   node6.next?.value,
+//   node6.prev?.next?.value,
+//   node6.next?.prev?.value,
 // );
-// console.log(doublyLinkedList.head.value, 6);
