@@ -92,7 +92,24 @@ export class DoublyLinkedList {
     }
   }
 
-  insertAtPosition(position: number, nodeToInsert: Node) {}
+  insertAtPosition(position: number, nodeToInsert: Node) {
+    let count = 1;
+    let currNode = this.head;
+    while (currNode) {
+      if (count === position) {
+        // set head or tail based on position, otherwise insert the node before the position
+        if (currNode === this.head) this.setHead(nodeToInsert);
+        // if the next node is the tail and it matches the position, i.e after the end of the LL
+        else this.insertBefore(currNode, nodeToInsert);
+        return;
+      } else if (currNode === this.tail) {
+        this.setTail(nodeToInsert);
+        return;
+      }
+      count++;
+      currNode = currNode.next;
+    }
+  }
 
   removeNodesWithValue(value: number) {}
 
@@ -234,6 +251,36 @@ node5.prev = node4;
 // );
 
 // insert after in the middle
+// doublyLinkedList.insertAfter(node4, node6);
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(6),
+//   node6.prev?.value,
+//   node6.next?.value,
+//   node6.prev?.next?.value,
+//   node6.next?.prev?.value,
+// );
+
+// insert at position head
+// doublyLinkedList.insertAtPosition(1, node6);
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(6),
+//   doublyLinkedList.head.value,
+//   doublyLinkedList.head.prev,
+//   doublyLinkedList.head.next?.value,
+//   doublyLinkedList.head.next?.prev?.value,
+// );
+
+// insert at position tail
+// doublyLinkedList.insertAtPosition(6, node6);
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(6),
+//   doublyLinkedList.tail.value,
+//   doublyLinkedList.tail.next,
+//   doublyLinkedList.tail.prev?.value,
+//   doublyLinkedList.tail.prev?.next?.value,
+// );
+
+// insert at position middle
 // doublyLinkedList.insertAfter(node4, node6);
 // console.log(
 //   doublyLinkedList.containsNodeWithValue(6),
