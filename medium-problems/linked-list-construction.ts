@@ -77,15 +77,15 @@ export class DoublyLinkedList {
     let currNode = this.tail?.prev;
     while (currNode) {
       if (currNode === node) {
-        const prev = currNode.prev;
+        const next = currNode.next;
 
-        if (prev) {
-          prev.next = nodeToInsert;
-          nodeToInsert.prev = prev;
+        if (next) {
+          next.next = nodeToInsert;
+          nodeToInsert.next = next;
         }
 
-        nodeToInsert.next = currNode;
-        currNode.prev = nodeToInsert;
+        nodeToInsert.prev = currNode;
+        currNode.next = nodeToInsert;
         return;
       }
       currNode = currNode.prev;
@@ -216,12 +216,29 @@ node5.prev = node4;
 // );
 
 // insert before in the middle
-doublyLinkedList.insertBefore(node5, node8);
-console.log(
-  doublyLinkedList.containsNodeWithValue(8),
-  node8.prev?.value,
-  node8.next?.value,
-  node5.prev?.value,
-);
+// doublyLinkedList.insertBefore(node5, node8);
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(8),
+//   node8.prev?.value,
+//   node8.next?.value,
+//   node5.prev?.value,
+// );
 
+// insert after tail
+// doublyLinkedList.insertAfter(node5, node8);
+// console.log(
+//   doublyLinkedList.tail.value,
+//   doublyLinkedList.tail.next?.value,
+//   doublyLinkedList.tail.prev?.next?.value,
+//   doublyLinkedList.tail.prev?.value,
+// );
+
+// // insert after in the middle
+// doublyLinkedList.insertAfter(node4, node6);
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(8),
+//   node8.prev?.value,
+//   node8.next?.value,
+//   node5.prev?.value,
+// );
 // console.log(doublyLinkedList.head.value, 6);
