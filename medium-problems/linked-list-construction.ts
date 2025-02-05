@@ -21,6 +21,9 @@ export class DoublyLinkedList {
 
   setHead(node: Node) {
     // if no head, there is no tail set head and tail to same node
+    if (this.removeSameNodeForReadjustment(node)) {
+      this.remove(node);
+    }
     if (!this.head) {
       this.head = node;
       this.tail = node;
@@ -29,10 +32,15 @@ export class DoublyLinkedList {
       oldHead.prev = node;
       this.head = node;
       node.next = oldHead;
+      this.head.prev = null;
     }
   }
 
   setTail(node: Node) {
+    if (this.removeSameNodeForReadjustment(node)) {
+      this.remove(node);
+    }
+
     if (!this.tail) {
       this.head = node;
       this.tail = node;
@@ -41,10 +49,15 @@ export class DoublyLinkedList {
       oldTail.next = node;
       node.prev = oldTail;
       this.tail = node;
+      this.tail.next = null;
     }
   }
 
   insertBefore(node: Node, nodeToInsert: Node) {
+    if (this.removeSameNodeForReadjustment(nodeToInsert)) {
+      this.remove(nodeToInsert);
+    }
+
     if (this.head === node) {
       this.setHead(nodeToInsert);
       return;
@@ -69,6 +82,10 @@ export class DoublyLinkedList {
   }
 
   insertAfter(node: Node, nodeToInsert: Node) {
+    if (this.removeSameNodeForReadjustment(nodeToInsert)) {
+      this.remove(nodeToInsert);
+    }
+
     if (this.tail === node) {
       this.setTail(nodeToInsert);
       return;
@@ -95,6 +112,12 @@ export class DoublyLinkedList {
   insertAtPosition(position: number, nodeToInsert: Node) {
     let count = 1;
     let currNode = this.head;
+
+    if (!this.head) {
+      this.setHead(nodeToInsert);
+      return;
+    }
+
     while (currNode) {
       if (count === position) {
         // set head or tail based on position, otherwise insert the node before the position
@@ -144,7 +167,7 @@ export class DoublyLinkedList {
       }
     } else {
       // node is not head or tail and somewhere inside of the LL
-      let currNode = this.head?.next; //start after head since we already evaluated the head
+      let currNode = this.head?.next; // start after head since we already evaluated the head
 
       while (currNode) {
         if (currNode === node) {
@@ -169,6 +192,16 @@ export class DoublyLinkedList {
     }
     return false;
   }
+
+  removeSameNodeForReadjustment(node: Node) {
+    // console.log('run', node.value);
+    let currNode = this.head;
+    while (currNode) {
+      if (currNode === node) return true;
+      currNode = currNode.next;
+    }
+    return false;
+  }
 }
 
 // nodes
@@ -184,16 +217,16 @@ const node8 = new Node(8);
 
 // doubly linked list configured manually
 const doublyLinkedList = new DoublyLinkedList();
-doublyLinkedList.head = node1;
-doublyLinkedList.tail = node5;
-node1.next = node2;
-node2.prev = node1;
-node2.next = node3;
-node3.prev = node2;
-node3.next = node4;
-node4.prev = node3;
-node4.next = node5;
-node5.prev = node4;
+// doublyLinkedList.head = node1;
+// doublyLinkedList.tail = node5;
+// node1.next = node2;
+// node2.prev = node1;
+// node2.next = node3;
+// node3.prev = node2;
+// node3.next = node4;
+// node4.prev = node3;
+// node4.next = node5;
+// node5.prev = node4;
 
 // console.log(doublyLinkedList.containsNodeWithValue(5));
 // console.log(doublyLinkedList.containsNodeWithValue(1));
@@ -299,15 +332,27 @@ node5.prev = node4;
 //   node6.next?.prev?.value,
 // );
 
-const newNode3A = new Node(3);
-const newNode3B = new Node(3);
-doublyLinkedList.setHead(newNode3A);
-doublyLinkedList.setTail(newNode3B);
+// const newNode3A = new Node(3);
+// const newNode3B = new Node(3);
+// doublyLinkedList.setHead(newNode3A);
+// doublyLinkedList.setTail(newNode3B);
 
-// multiple remove
-doublyLinkedList.removeNodesWithValue(3);
-console.log(
-  doublyLinkedList.containsNodeWithValue(3),
-  doublyLinkedList.head.value,
-  doublyLinkedList.tail.value,
-);
+// // multiple remove
+// doublyLinkedList.removeNodesWithValue(3);
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(3),
+//   doublyLinkedList.head.value,
+//   doublyLinkedList.tail.value,
+// );
+
+doublyLinkedList.setHead(node5);
+doublyLinkedList.setHead(node4);
+doublyLinkedList.setHead(node3);
+doublyLinkedList.setHead(node2);
+doublyLinkedList.setHead(node1);
+doublyLinkedList.setHead(node4);
+doublyLinkedList.setTail(node6);
+doublyLinkedList.insertBefore(node6, node3);
+
+console.log(doublyLinkedList.tail?.value, 'tail should be 6');
+// console.log(node3);
