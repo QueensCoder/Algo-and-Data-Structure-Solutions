@@ -28,6 +28,7 @@ export class DoublyLinkedList {
       const oldHead = this.head;
       oldHead.prev = node;
       this.head = node;
+      node.next = oldHead;
     }
   }
 
@@ -36,13 +37,36 @@ export class DoublyLinkedList {
       this.head = node;
       this.tail = node;
     } else {
-      const oldHead = this.tail;
-      oldHead.next = node;
+      const oldTail = this.tail;
+      oldTail.next = node;
+      node.prev = oldTail;
       this.tail = node;
     }
   }
 
-  insertBefore(node: Node, nodeToInsert: Node) {}
+  insertBefore(node: Node, nodeToInsert: Node) {
+    if (this.head === node) {
+      this.setHead(nodeToInsert);
+      return;
+    }
+
+    let currNode = this.head?.next;
+    while (currNode) {
+      if (currNode === node) {
+        const prev = currNode.prev;
+
+        if (prev) {
+          prev.next = nodeToInsert;
+          nodeToInsert.prev = prev;
+        }
+
+        nodeToInsert.next = currNode;
+        currNode.prev = nodeToInsert;
+        return;
+      }
+      currNode = currNode.next;
+    }
+  }
 
   insertAfter(node: Node, nodeToInsert: Node) {}
 
@@ -154,12 +178,29 @@ node5.prev = node4;
 // );
 
 // remove middle node, 3
-console.log(doublyLinkedList.remove(node3));
+// console.log(doublyLinkedList.remove(node3));
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(3),
+//   node2.next.value,
+//   node4.prev.value,
+// );
+
+// console.log(doublyLinkedList.tail.value, 8);
+
+// insert before head
+doublyLinkedList.insertBefore(node1, node8);
 console.log(
-  doublyLinkedList.containsNodeWithValue(3),
-  node2.next.value,
-  node4.prev.value,
+  doublyLinkedList.head.value,
+  doublyLinkedList.head.next?.value,
+  doublyLinkedList.head.next?.prev?.value,
 );
 
-// remove node in the middle, expect prev.next to point to curr.next and next.prev to point to curr.prev
-// console.log(doublyLinkedList.remove(node3));
+// insert before in the middle
+// console.log(
+//   doublyLinkedList.containsNodeWithValue(8),
+//   node8.prev,
+//   node8.next,
+//   node6.prev,
+// );
+
+// console.log(doublyLinkedList.head.value, 6);
