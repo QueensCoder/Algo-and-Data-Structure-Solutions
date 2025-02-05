@@ -281,11 +281,11 @@ node5.prev = node4;
 // );
 
 // insert at position middle
-// doublyLinkedList.insertAfter(node4, node6);
-// console.log(
-//   doublyLinkedList.containsNodeWithValue(6),
-//   node6.prev?.value,
-//   node6.next?.value,
-//   node6.prev?.next?.value,
-//   node6.next?.prev?.value,
-// );
+doublyLinkedList.insertAtPosition(2, node6);
+console.log(
+  doublyLinkedList.containsNodeWithValue(6),
+  node6.prev?.value,
+  node6.next?.value,
+  node6.prev?.next?.value,
+  node6.next?.prev?.value,
+);
