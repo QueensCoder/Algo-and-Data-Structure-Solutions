@@ -29,20 +29,17 @@ export class BST {
   }
 
   contains(value: number) {
-    const visited: number[] = [];
-
-    this.containsHelper(this, value, visited);
-    const lastVisited = visited[visited.length - 1];
-    return lastVisited === value;
+    return this.containsHelper(this, value);
   }
 
-  containsHelper(tree: BST | null, value: number, visited: number[]) {
-    const lastVisited = visited[visited.length - 1];
-    if (lastVisited === value) return true;
-    if (!tree) return;
-    if (tree.value > value) this.containsHelper(this.left, value, visited);
-    visited.push(tree.value);
-    if (tree.value > value) this.containsHelper(this.left, value, visited);
+  containsHelper(tree: BST | null, value: number) {
+    if (!tree) return false;
+    if (tree.value === value) return true;
+
+    if (tree.value > value && tree.left)
+      return this.containsHelper(tree.left, value);
+    if (tree.value <= value && tree.right)
+      return this.containsHelper(tree.right, value);
   }
 
   remove(value: number): BST {
@@ -59,7 +56,3 @@ tree.left.left = new BST(2);
 tree.left.right = new BST(5);
 tree.right.left = new BST(13);
 tree.right.right = new BST(22);
-
-console.log(tree.contains(22));
-console.log(tree.contains(100));
-console.log(tree.contains(5));
