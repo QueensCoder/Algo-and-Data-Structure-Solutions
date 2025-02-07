@@ -24,4 +24,6 @@ test('Test Case BST methods', () => {
 
   expect(root.contains(10)).toEqual(true);
   expect(root.contains(12)).toEqual(true);
+  expect(root.contains(15)).toEqual(true);
+  expect(root.contains(1000)).toEqual(false);
 });

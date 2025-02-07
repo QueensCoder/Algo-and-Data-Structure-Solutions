@@ -29,7 +29,7 @@ export class BST {
   }
 
   contains(value: number) {
-    return this.containsHelper(this, value);
+    return !!this.containsHelper(this, value);
   }
 
   containsHelper(tree: BST | null, value: number) {
