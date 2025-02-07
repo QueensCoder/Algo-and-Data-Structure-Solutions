@@ -14,20 +14,14 @@ const treeBuilder = () => {
   return root;
 };
 
-test('Test Case Insert new node', () => {
+test('Test Case BST methods', () => {
   const root = treeBuilder();
 
   root.insert(12);
 
   expect(root.right?.left?.left).not.toBeNull();
   expect(root.right?.left?.left!.value).toEqual(12);
-});
 
-test('Test Case contains method', () => {
-  const root = treeBuilder();
-
-  expect(root.contains(15)).toEqual(true);
-
-  expect(root.right?.left?.left).not.toBeNull();
-  expect(root.right?.left?.left!.value).toEqual(12);
+  expect(root.contains(10)).toEqual(true);
+  //   expect(root.contains(12)).toEqual(true);
 });

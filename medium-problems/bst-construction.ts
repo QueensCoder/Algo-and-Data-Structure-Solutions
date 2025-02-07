@@ -26,31 +26,23 @@ export class BST {
       if (tree.right) this.insertHelper(tree.right, value);
       else tree.right = new BST(value);
     }
-    // if (tree.left && tree.left.value > value) {
-    //   console.log('traverse left');
-    //   this.insertHelper(tree.left, value);
-    // } else if (tree.right && tree.right.value <= value) {
-    //   console.log('traverse right.......');
-    //   this.insertHelper(tree.right, value);
-    // } else if (!tree.left && value > this.value) {
-    //   console.log('got her left e');
-    //   this.left = new BST(value);
-    // } else if (!tree.right && value <= this.value) {
-    //   console.log('got here roght');
-    //   this.right = new BST(value);
-    // }
   }
 
-  // containsHelper(tree: BST | null, value: number): boolean | undefined {
-  //   if (tree === null) return false;
-  //   if (tree.value === value) return true;
-
-  //   if (value < tree.value) return this.containsHelper(tree.left, value);
-  //   if (value >= tree.value) return this.containsHelper(tree.right, value);
-  // }
-
   contains(value: number) {
-    // return this.containsHelper(this, value);
+    const visited: number[] = [];
+
+    this.containsHelper(this, value, visited);
+    const lastVisited = visited[visited.length - 1];
+    return lastVisited === value;
+  }
+
+  containsHelper(tree: BST | null, value: number, visited: number[]) {
+    const lastVisited = visited[visited.length - 1];
+    if (lastVisited === value) return true;
+    if (!tree) return;
+    if (tree.value > value) this.containsHelper(this.left, value, visited);
+    visited.push(tree.value);
+    if (tree.value > value) this.containsHelper(this.left, value, visited);
   }
 
   remove(value: number): BST {
