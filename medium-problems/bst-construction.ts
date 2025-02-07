@@ -42,7 +42,18 @@ export class BST {
       return this.containsHelper(tree.right, value);
   }
 
+  removeHelper(tree: BST | null, value: number) {
+    // if (!tree) return false;
+    // if (tree.value === value) return true;
+    // if (tree.value > value && tree.left)
+    //   return this.containsHelper(tree.left, value);
+    // if (tree.value <= value && tree.right)
+    //   return this.containsHelper(tree.right, value);
+  }
+
   remove(value: number): BST {
+    // trees with single node cannot be removed
+    if (this.value === value && !this.left && !this.right) return this;
     // Write your code here.
     // Do not edit the return statement of this method.
     return this;
