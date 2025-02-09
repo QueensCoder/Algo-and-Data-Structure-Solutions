@@ -14,6 +14,35 @@ const treeBuilder = () => {
   return root;
 };
 
+// tree examples
+//         10
+//       /    \
+//      5      15
+//     / \    /  \
+//    2   5  13  22
+//   /        \
+//  1         14
+
+// tree insert
+//         10
+//       /    \
+//      5      15
+//     / \    /  \
+//    2   5  13  22
+//   /      / \
+//  1     12   14
+
+// When using remove we look for the next smallest node to replace the removed node
+// next smallest node must be greater than the removed node but smaller than all other nodes, it must also be greater than the left subtree
+// tree remove
+//         12
+//       /    \
+//      5      15
+//     / \    /  \
+//    2   5  13  22
+//   /         \
+//  1          14
+
 test('Test Case BST methods', () => {
   const root = treeBuilder();
 

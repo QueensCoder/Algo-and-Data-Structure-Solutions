@@ -42,6 +42,8 @@ export class BST {
       return this.containsHelper(tree.right, value);
   }
 
+  // for the removed node if on right side of tree, we need to now find the next smallest node and replace the removed node
+  // whenever a node is removed you always look left since a smaller node can now be the parent
   removeHelper(tree: BST | null, value: number) {
     // if (!tree) return false;
     // if (tree.value === value) return true;
