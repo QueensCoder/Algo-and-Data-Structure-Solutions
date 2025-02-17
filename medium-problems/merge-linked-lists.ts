@@ -20,6 +20,32 @@ export const getLengthOfLL = (linkedList: LinkedList) => {
   return length;
 };
 
+// O(n + m) time , O(n) space
+export function mergingLinkedListsSubOptimal(
+  linkedListOne: LinkedList,
+  linkedListTwo: LinkedList,
+) {
+  const listOneValues = new Set();
+
+  let currNode: CurrentNode = linkedListOne;
+
+  while (currNode) {
+    listOneValues.add(currNode.value);
+    currNode = currNode.next;
+  }
+
+  let currNodeFromListTwo: CurrentNode = linkedListTwo;
+
+  while (currNodeFromListTwo) {
+    if (listOneValues.has(currNodeFromListTwo.value)) {
+      return currNodeFromListTwo;
+    }
+    currNodeFromListTwo = currNodeFromListTwo.next;
+  }
+
+  return null;
+}
+
 export function mergingLinkedLists(
   linkedListOne: LinkedList,
   linkedListTwo: LinkedList,
@@ -35,7 +61,7 @@ export function mergingLinkedLists(
   if (listOneLen === listTwoLen) {
     let currListOne: CurrentNode = linkedListOne;
     let currListTwo: CurrentNode = linkedListTwo;
-    console.log('got here');
+
     while (currListOne && currListTwo) {
       if (currListOne === currListTwo) {
         return currListOne;
@@ -43,6 +69,7 @@ export function mergingLinkedLists(
       currListOne = currListOne.next;
       currListTwo = currListTwo.next;
     }
+  } else {
   }
 
   return null;
