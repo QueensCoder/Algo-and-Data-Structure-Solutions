@@ -1,3 +1,5 @@
+import { L } from 'vitest/dist/chunks/reporters.6vxQttCV.js';
+
 export class LinkedList {
   value: number;
   next: LinkedList | null;
@@ -43,6 +45,7 @@ export const getLengthOfLL = (linkedList: LinkedList) => {
     length++;
     currNode = currNode.next;
   }
+
   return length;
 };
 
@@ -69,9 +72,9 @@ export function mergingLinkedLists(
   let currListTwo: CurrentNode = linkedListTwo;
 
   if (listOneLen > listTwoLen) {
-    getNodeAtN(currListOne, listOneLen - listTwoLen);
-  } else if (listTwoLen < listOneLen) {
-    getNodeAtN(currListTwo, listTwoLen - listOneLen);
+    currListOne = getNodeAtN(currListOne, listOneLen - listTwoLen);
+  } else if (listTwoLen > listOneLen) {
+    currListTwo = getNodeAtN(currListTwo, listTwoLen - listOneLen);
   }
 
   while (currListOne && currListTwo) {
@@ -86,15 +89,22 @@ export function mergingLinkedLists(
 }
 
 const nodeOne = new LinkedList(1);
-const nodeFour = new LinkedList(4);
-nodeOne.next = nodeFour;
+// const nodeFour = new LinkedList(4);
+// nodeOne.next = nodeFour;
 
-const linkedListOne = new LinkedList(2);
-linkedListOne.next = new LinkedList(3);
-linkedListOne.next.next = nodeOne;
+// const linkedListOne = new LinkedList(2);
+// linkedListOne.next = new LinkedList(3);
+// linkedListOne.next.next = nodeOne;
 
-const linkedListTwo = new LinkedList(8);
-linkedListTwo.next = new LinkedList(7);
-linkedListTwo.next.next = nodeOne;
+// const linkedListTwo = new LinkedList(8);
+// linkedListTwo.next = new LinkedList(7);
+// linkedListTwo.next.next = nodeOne;
+
+const linkedListOne = nodeOne;
+
+const linkedListTwo = new LinkedList(2);
+linkedListTwo.next = new LinkedList(3);
+linkedListTwo.next.next = new LinkedList(4);
+linkedListTwo.next.next.next = nodeOne;
 
 console.log(mergingLinkedLists(linkedListOne, linkedListTwo));
