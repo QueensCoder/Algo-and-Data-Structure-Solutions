@@ -10,16 +10,6 @@ export class LinkedList {
 
 type CurrentNode = LinkedList | null;
 
-export const getLengthOfLL = (linkedList: LinkedList) => {
-  let length = 0;
-  let currNode: CurrentNode = linkedList;
-  while (currNode) {
-    length++;
-    currNode = currNode.next;
-  }
-  return length;
-};
-
 // O(n + m) time , O(n) space
 export function mergingLinkedListsSubOptimal(
   linkedListOne: LinkedList,
@@ -46,6 +36,25 @@ export function mergingLinkedListsSubOptimal(
   return null;
 }
 
+export const getLengthOfLL = (linkedList: LinkedList) => {
+  let length = 0;
+  let currNode: CurrentNode = linkedList;
+  while (currNode) {
+    length++;
+    currNode = currNode.next;
+  }
+  return length;
+};
+
+export const getNodeAtN = (linkedList: LinkedList, num: number) => {
+  let currNode: CurrentNode = linkedList;
+  while (num && currNode) {
+    num--;
+    currNode = currNode.next;
+  }
+  return currNode;
+};
+
 export function mergingLinkedLists(
   linkedListOne: LinkedList,
   linkedListTwo: LinkedList,
@@ -53,23 +62,24 @@ export function mergingLinkedLists(
   let listOneLen = getLengthOfLL(linkedListOne);
   let listTwoLen = getLengthOfLL(linkedListTwo);
 
-  // two case
-  // same length case, easy to solve, use two pointers move them together
-  // different length case, use two pointers,
+  //   given that the one list is longer than the other, and the intersection point have matching subsequent nodes
+  //   we can ignore all of the longer lists nodes up until the point of where the head of the smaller list begins
 
-  //   case 1
-  if (listOneLen === listTwoLen) {
-    let currListOne: CurrentNode = linkedListOne;
-    let currListTwo: CurrentNode = linkedListTwo;
+  let currListOne: CurrentNode = linkedListOne;
+  let currListTwo: CurrentNode = linkedListTwo;
 
-    while (currListOne && currListTwo) {
-      if (currListOne === currListTwo) {
-        return currListOne;
-      }
-      currListOne = currListOne.next;
-      currListTwo = currListTwo.next;
+  if (listOneLen > listTwoLen) {
+    getNodeAtN(currListOne, listOneLen - listTwoLen);
+  } else if (listTwoLen < listOneLen) {
+    getNodeAtN(currListTwo, listTwoLen - listOneLen);
+  }
+
+  while (currListOne && currListTwo) {
+    if (currListOne === currListTwo) {
+      return currListOne;
     }
-  } else {
+    currListOne = currListOne.next;
+    currListTwo = currListTwo.next;
   }
 
   return null;
