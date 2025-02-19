@@ -10,9 +10,45 @@ export class BinaryTree {
   }
 }
 
+export const depthFirstSearch = (
+  tree: BinaryTree | null,
+  array: number[],
+  order: 'pre-order' | 'reverse-pre-order',
+) => {
+  if (!tree) return;
+  if (order === 'pre-order') {
+    depthFirstSearch(tree.left, array, order);
+    array.push(tree.value);
+    depthFirstSearch(tree.right, array, order);
+  } else {
+    depthFirstSearch(tree.right, array, order);
+    array.push(tree.value);
+    depthFirstSearch(tree.left, array, order);
+  }
+};
+
+// Approach 1: DFS pre order and reverse pre order on left and right sub trees
+// O(n) time | O(n) space, if both arrays values are equal then tree is symmetrical
 export function symmetricalTree(tree: BinaryTree) {
-  // Write your code here.
-  return false;
+  if (!tree.left && !tree.right) return true;
+  else if (!tree.left && tree.right) return false;
+  else if (tree.left && !tree.right) return false;
+
+  const leftSubTreeArray: number[] = [];
+  const rightSubTreeArray: number[] = [];
+  depthFirstSearch(tree.left, leftSubTreeArray, 'pre-order');
+  depthFirstSearch(tree.right, rightSubTreeArray, 'reverse-pre-order');
+
+  if (leftSubTreeArray.length !== rightSubTreeArray.length) return false;
+
+  for (let i = 0; i < leftSubTreeArray.length; i++) {
+    let leftElement = leftSubTreeArray[i];
+    let rightElement = rightSubTreeArray[i];
+
+    if (leftElement !== rightElement) return false;
+  }
+
+  return true;
 }
 
 const tree = new BinaryTree(1);
