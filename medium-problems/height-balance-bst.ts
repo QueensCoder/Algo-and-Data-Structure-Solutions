@@ -43,6 +43,7 @@ export function heightBalancedBinaryTree(tree: BinaryTree) {
   const rightSubTreeHeight = treeHeightChecker(tree.right);
 
   if (isNaN(leftSubTreeHeight) || isNaN(rightSubTreeHeight)) return false;
+  else if (Math.abs(leftSubTreeHeight - rightSubTreeHeight) > 1) return false;
 
   return true;
 }
