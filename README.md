@@ -1,4 +1,4 @@
-# About
+# Algo Expert Solutions
 
 This repository contains solutions to various algorithmic problems from
 platforms like AlgoExpert, Codewars, and Codility. It is organized by difficulty
