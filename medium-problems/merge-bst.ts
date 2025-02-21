@@ -21,24 +21,24 @@ const expectedNodesOrdered = [9, 8, 4, 2, 1, 7, 11, 6];
 // We're going to merge tree2 into tree1, so we can just modify tree1 in place
 export const mergeBSTHelper = (tree1: BinaryTree, tree2: BinaryTree | null) => {
   if (tree1.left) mergeBSTHelper(tree1.left, tree2?.left ?? null);
+  //   if tree1 doesn't have nodes found in tree two, set tree1.left to tree2.left
   else if (!tree1.left && tree2?.left) tree1.left = tree2.left;
+
+  //   if tree1 and two both have nodes, add those values and replace tree1's value
   let treeOneValue = tree1.value;
   let treeTwoValue = tree2?.value;
   tree1.value = treeOneValue + (treeTwoValue || 0);
 
   if (tree1.right) mergeBSTHelper(tree1.right, tree2?.right ?? null);
   else if (!tree1.right && tree2?.right) tree1.right = tree2.right;
-
-  //   if (!tree1?.left && tree2?.left) tree1.left = tree2?.left;
-  //   if (!tree1?.right && tree2?.right) tree1.right = tree2?.right;
 };
 
 export function mergeBinaryTrees(tree1: BinaryTree, tree2: BinaryTree) {
   mergeBSTHelper(tree1, tree2);
   const arr = [];
   dfs(tree1, arr);
-  console.log(arr, expectedNodesOrdered);
-  //   return tree1;
+  //   console.log(arr, expectedNodesOrdered);
+  return tree1;
 }
 
 // tree example
