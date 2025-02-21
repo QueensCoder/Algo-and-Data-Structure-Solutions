@@ -1,4 +1,4 @@
-### About
+# About
 
 This repository contains solutions to various algorithmic problems from
 platforms like AlgoExpert, Codewars, and Codility. It is organized by difficulty
@@ -13,7 +13,7 @@ algorithms and data structures.
 Feel free to explore the solutions, run the provided commands, and contribute by
 adding your own solutions or improving existing ones.
 
-### Frontend Expert and Systems Expert
+## Frontend Expert and Systems Expert
 
 In addition to algorithmic problems, this repository also includes solutions for
 Frontend Expert and Systems Expert challenges. These sections cover a wide range
@@ -28,7 +28,7 @@ principles.
 Contributions are welcome to expand and improve the collection of solutions in
 these areas.
 
-### Running Tests with Vite
+## Running Tests with Vite
 
 To run tests for the solutions in this repository, we use Vite, a fast and
 modern build tool. Vite provides a smooth development experience with its
@@ -41,7 +41,7 @@ tests, follow these steps:
 This setup ensures that your tests run efficiently and you get immediate
 feedback on your code changes.
 
-### Archived Problems
+## Archived Problems
 
 This repository also contains a section for archived problems. These are older
 problems and solutions that are no longer actively maintained. While they may
@@ -49,8 +49,8 @@ still provide valuable insights and learning opportunities, please be aware that
 they might not follow the latest best practices or coding standards.
 Contributions to update or improve these archived solutions are welcome.
 
-# Run Commands
+### Run Commands
 
 <!-- run using hot reload for ts solutions -->
 
-tsx watch easy-problems/sorted-squared-array.ts
+`tsx watch easy-problems/sorted-squared-array.ts`
