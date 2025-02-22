@@ -61,7 +61,5 @@ const preOrderTraversalValues = [10, 4, 2, 1, 5, 17, 19, 18];
 const preOrderConstructedTree = reconstructBst(preOrderTraversalValues);
 
 const newTreeValues: number[] = [];
-console.log(
-  preOrderDFS(preOrderConstructedTree, newTreeValues),
-  preOrderTraversalValues,
-);
+preOrderDFS(preOrderConstructedTree, newTreeValues);
+console.log(newTreeValues, preOrderTraversalValues);
