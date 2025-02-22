@@ -14,7 +14,52 @@ export class BST {
   }
 }
 
+export const preOrderDFS = (tree: BST, nodeList: number[]) => {
+  nodeList.push(tree.value);
+  if (tree.left) preOrderDFS(tree.left, nodeList);
+  if (tree.right) preOrderDFS(tree.right, nodeList);
+};
+
+export const insertNode = (tree: BST, value: number) => {
+  if (value < tree.value) {
+    if (!tree.left) {
+      tree.left = new BST(value);
+    } else {
+      insertNode(tree.left, value);
+    }
+  } else {
+    if (!tree.right) {
+      tree.right = new BST(value);
+    } else {
+      insertNode(tree.right, value);
+    }
+  }
+};
+
 export function reconstructBst(preOrderTraversalValues: number[]): BST | null {
-  // Write your code here.
-  return null;
+  const firstValue = preOrderTraversalValues.shift();
+  if (!firstValue) return null;
+  const tree = new BST(firstValue);
+
+  preOrderTraversalValues.forEach((value) => insertNode(tree, value));
+
+  return tree;
 }
+
+const preOrderTraversalValues = [10, 4, 2, 1, 5, 17, 19, 18];
+// expected tree
+//         10
+//        /  \
+//       4    17
+//      / \     \
+//     2   5    19
+//    /         /
+//   1         18
+
+const preOrderConstructedTree = reconstructBst(preOrderTraversalValues);
+
+const newTreeValues: number[] = [];
+console.log(
+  preOrderDFS(preOrderConstructedTree, newTreeValues),
+  preOrderTraversalValues,
+);
