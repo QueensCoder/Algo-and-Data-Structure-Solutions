@@ -16,6 +16,7 @@ export class BST {
 
 export const preOrderDFS = (tree: BST, nodeList: number[]) => {
   nodeList.push(tree.value);
+  console.log(tree.value);
   if (tree.left) preOrderDFS(tree.left, nodeList);
   if (tree.right) preOrderDFS(tree.right, nodeList);
 };
@@ -37,11 +38,12 @@ export const insertNode = (tree: BST, value: number) => {
 };
 
 export function reconstructBst(preOrderTraversalValues: number[]): BST | null {
-  const firstValue = preOrderTraversalValues.shift();
+  const preOrderTraversalValuesClone = [...preOrderTraversalValues];
+  const firstValue = preOrderTraversalValuesClone.shift();
   if (!firstValue) return null;
   const tree = new BST(firstValue);
 
-  preOrderTraversalValues.forEach((value) => insertNode(tree, value));
+  preOrderTraversalValuesClone.forEach((value) => insertNode(tree, value));
 
   return tree;
 }
