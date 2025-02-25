@@ -10,19 +10,33 @@ export class BinaryTree {
   }
 }
 
-const treeMap = {};
-export const bstHeightCheck = (tree: BinaryTree | null) => {
-  if (!tree) return 0;
-  const leftSubTreeHeight = bstHeightCheck(tree.left);
-  const rightSubTreeHeight = bstHeightCheck(tree.right);
+type treeMaxType = { value: number | null; diameter: number };
+export const bstHeightCheck = (tree: BinaryTree, treeMax: treeMaxType) => {
+  // keep track of height of tree at a given node
+  const treeInfo = { left: 0, right: 0 };
+  if (tree.left) {
+    const leftHeight = bstHeightCheck(tree.left, treeMax);
+    treeInfo.left = leftHeight.left + 1;
+  }
+  if (tree.right) {
+    const rightHeight = bstHeightCheck(tree.right, treeMax);
+    treeInfo.right = rightHeight.right + 1;
+  }
 
-  console.log(tree.value, leftSubTreeHeight, rightSubTreeHeight);
-  return 1 + leftSubTreeHeight + rightSubTreeHeight;
+  const newDiameter = treeInfo.left + treeInfo.right;
+  if (newDiameter > treeMax.diameter) {
+    treeMax.diameter = newDiameter;
+    treeMax.value = tree.value;
+  }
+
+  return treeInfo;
 };
 
 export function binaryTreeDiameter(tree: BinaryTree) {
-  const maxDiameter = bstHeightCheck(tree);
-  return maxDiameter;
+  const treeMax: treeMaxType = { value: null, diameter: 0 };
+  bstHeightCheck(tree, treeMax);
+
+  return treeMax.diameter;
 }
 
 const root = new BinaryTree(1);

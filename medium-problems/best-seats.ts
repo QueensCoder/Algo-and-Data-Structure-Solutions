@@ -1,5 +1,5 @@
 export function bestSeat(seats: number[]) {
-  // Write your code here.
+  if (seats.every((seat) => seat === 1)) return -1;
   return -1;
 }
 
