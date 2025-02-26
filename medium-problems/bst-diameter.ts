@@ -10,33 +10,42 @@ export class BinaryTree {
   }
 }
 
-type treeMaxType = { value: number | null; diameter: number };
-export const bstHeightCheck = (tree: BinaryTree, treeMax: treeMaxType) => {
+export const bstHeightCheck = (tree: BinaryTree) => {
   // keep track of height of tree at a given node
-  const treeInfo = { left: 0, right: 0 };
+  let left = 0;
+  let right = 0;
   if (tree.left) {
-    const leftHeight = bstHeightCheck(tree.left, treeMax);
-    treeInfo.left = leftHeight.left + 1;
+    const leftHeight = bstHeightCheck(tree.left);
+    left = leftHeight + 1;
   }
   if (tree.right) {
-    const rightHeight = bstHeightCheck(tree.right, treeMax);
-    treeInfo.right = rightHeight.right + 1;
+    const rightHeight = bstHeightCheck(tree.right);
+    right = rightHeight + 1;
   }
-
-  const newDiameter = treeInfo.left + treeInfo.right;
-  if (newDiameter > treeMax.diameter) {
-    treeMax.diameter = newDiameter;
-    treeMax.value = tree.value;
-  }
-
-  return treeInfo;
+  console.log(left, right, tree.value);
+  return Math.max(left + right, 0);
 };
 
 export function binaryTreeDiameter(tree: BinaryTree) {
-  const treeMax: treeMaxType = { value: null, diameter: 0 };
-  bstHeightCheck(tree, treeMax);
+  let currMaxHeight = 0;
+  const bstHeightCheck = (tree: BinaryTree) => {
+    // keep track of height of tree at a given node
+    let left = 0;
+    let right = 0;
+    if (tree.left) {
+      const leftHeight = bstHeightCheck(tree.left);
+      left = leftHeight + 1;
+    }
+    if (tree.right) {
+      const rightHeight = bstHeightCheck(tree.right);
+      right = rightHeight + 1;
+    }
+    currMaxHeight = Math.max(left + right, currMaxHeight);
+    return Math.max(left, right);
+  };
 
-  return treeMax.diameter;
+  bstHeightCheck(tree);
+  return currMaxHeight;
 }
 
 const root = new BinaryTree(1);
@@ -61,3 +70,19 @@ root.right = new BinaryTree(2);
 // 9           6
 
 console.log(binaryTreeDiameter(root));
+
+export function binaryTreeDiameterSimplfied(tree: BinaryTree) {
+  let currMax = 0;
+  const bstHeightCheck = (tree: BinaryTree | null): number => {
+    if (!tree) return -1;
+    const leftSubTree: number = bstHeightCheck(tree.left) + 1;
+    const rightSubTree: number = bstHeightCheck(tree.right) + 1;
+
+    currMax = Math.max(leftSubTree + rightSubTree, currMax);
+    return Math.max(leftSubTree, rightSubTree);
+  };
+
+  bstHeightCheck(tree);
+
+  return currMax;
+}
