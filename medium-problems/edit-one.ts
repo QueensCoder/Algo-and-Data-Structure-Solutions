@@ -10,14 +10,25 @@ export function oneEdit(stringOne: string, stringTwo: string) {
   //   if the shorter string has too few characters it automatically false
 
   while (stringOnePointer < maxChars || stringTwoPointer < maxChars) {
-    let longerWordChar = stringOne[stringOnePointer];
-    let shorterWordChar = stringTwo[stringTwoPointer];
+    let stringOneChar = stringOne[stringOnePointer];
+    let stringTwoChar = stringTwo[stringTwoPointer];
 
-    console.log(longerWordChar, shorterWordChar);
+    console.log(stringOneChar, stringTwoChar);
 
-    if (longerWordChar !== shorterWordChar) {
+    if (stringOneChar !== stringTwoChar) {
       // difference found
       diffs++;
+
+      let nextCharStringOne = stringOne[stringOnePointer + 1];
+      let nextCharStringTwo = stringTwo[stringTwoPointer + 1];
+
+      if (nextCharStringOne !== nextCharStringTwo) {
+        if (nextCharStringOne === stringTwoChar) {
+          stringOnePointer++;
+        } else if (nextCharStringTwo === stringOneChar) {
+          stringTwoPointer++;
+        }
+      }
     }
 
     stringOnePointer++;
@@ -28,10 +39,12 @@ export function oneEdit(stringOne: string, stringTwo: string) {
   return diffs <= 1;
 }
 
-// console.log(oneEditBruteForce('hello', 'hallo'));
-// console.log(oneEditBruteForce('a', 'a'));
-// console.log(oneEditBruteForce('abc', 'b'));
-console.log(
-  oneEditBruteForce('abdefghijklmnopqrstuvwxyz', 'bcdefghijklmnopqrstuvwxyz'),
-  'should be false',
-);
+// console.log(oneEdit('hello', 'hallo'));
+// console.log(oneEdit('a', 'a'));
+// console.log(oneEdit('abc', 'b'));
+console.log(oneEdit('ab', 'b'));
+console.log(oneEdit('ba', 'bb'));
+// console.log(
+//   oneEdit('abdefghijklmnopqrstuvwxyz', 'bcdefghijklmnopqrstuvwxyz'),
+//   'should be false',
+// );
