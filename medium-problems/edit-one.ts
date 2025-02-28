@@ -7,13 +7,9 @@ export function oneEdit(stringOne: string, stringTwo: string) {
   const maxChars =
     stringOne.length >= stringTwo.length ? stringOne.length : stringTwo.length;
 
-  //   if the shorter string has too few characters it automatically false
-
   while (stringOnePointer < maxChars || stringTwoPointer < maxChars) {
     let stringOneChar = stringOne[stringOnePointer];
     let stringTwoChar = stringTwo[stringTwoPointer];
-
-    console.log(stringOneChar, stringTwoChar);
 
     if (stringOneChar !== stringTwoChar) {
       // difference found
@@ -22,6 +18,7 @@ export function oneEdit(stringOne: string, stringTwo: string) {
       let nextCharStringOne = stringOne[stringOnePointer + 1];
       let nextCharStringTwo = stringTwo[stringTwoPointer + 1];
 
+      //   move either pointer forward if the next characters don't match
       if (nextCharStringOne !== nextCharStringTwo) {
         if (nextCharStringOne === stringTwoChar) {
           stringOnePointer++;
