@@ -3,6 +3,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "vitest": "^3.0.6"
+    "vitest": "^3.0.6",
+    "esbuild": ">=0.25.0"
   }
 }
