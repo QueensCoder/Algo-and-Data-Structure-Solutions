@@ -10,26 +10,64 @@ export class BinaryTree {
   }
 }
 
+// get tree sum and its half value
+const dfsSum = (tree: BinaryTree | null): number => {
+  if (!tree) return 0;
+  let leftValue = dfsSum(tree.left);
+  let rightValue = dfsSum(tree.right);
+
+  const treeTotal = leftValue + rightValue + tree.value;
+  return treeTotal;
+};
+
+const dfsTreeSplitCheck = (
+  tree: BinaryTree | null,
+  maxValue: number,
+): number | undefined => {
+  if (!tree) return 0;
+  let leftValue = dfsSum(tree.left);
+  let rightValue = dfsSum(tree.right);
+
+  if (leftValue === maxValue) {
+    // if left subtree has half of the total value, its the first half
+    tree.left = null;
+    return;
+  } else if (rightValue === maxValue) {
+    tree.right = null;
+    return;
+  }
+
+  const treeTotal = leftValue + rightValue + tree.value;
+  return treeTotal;
+};
+
 export function splitBinaryTree(tree: BinaryTree) {
+  // if no left or right node return 0
+  if (!tree.left && !tree.right) return 0;
+
   let treeTotal = 0;
 
-  const dfs = (tree) => {
-    if (tree.left) dfs(tree.left);
-    treeTotal += treeTotal;
-    if (tree.right) dfs(tree.right);
-  };
+  treeTotal = dfsSum(tree);
+  // if treeTotal is odd the tree cannot be split into two
+  if (treeTotal % 2 === 1) return 0;
 
-  console.log(treeTotal);
+  const halfTreeTotal = treeTotal / 2;
+
+  dfsTreeSplitCheck(tree, halfTreeTotal);
+
+  const remainingValueAfterSplit = dfsSum(tree);
+
+  return halfTreeTotal === remainingValueAfterSplit ? halfTreeTotal : 0;
 }
 
-const root = new BinaryTree(1);
-root.left = new BinaryTree(3);
-root.right = new BinaryTree(-2);
-root.left.left = new BinaryTree(6);
-root.left.right = new BinaryTree(-5);
-root.left.left.left = new BinaryTree(2);
-root.right.left = new BinaryTree(5);
-root.right.right = new BinaryTree(2);
+// const root = new BinaryTree(1);
+// root.left = new BinaryTree(3);
+// root.right = new BinaryTree(-2);
+// root.left.left = new BinaryTree(6);
+// root.left.right = new BinaryTree(-5);
+// root.left.left.left = new BinaryTree(2);
+// root.right.left = new BinaryTree(5);
+// root.right.right = new BinaryTree(2);
 
 // tree
 //          1
@@ -39,5 +77,28 @@ root.right.right = new BinaryTree(2);
 //     6  -5 5   2
 //    /
 //   2
+
+const root = new BinaryTree(1);
+root.right = new BinaryTree(2);
+root.right.right = new BinaryTree(3);
+root.right.right.right = new BinaryTree(-4);
+root.right.right.right.right = new BinaryTree(5);
+root.right.right.right.right.right = new BinaryTree(6);
+root.right.right.right.right.right.right = new BinaryTree(9);
+
+// tree
+//  1
+//   \
+//    2
+//     \
+//      3
+//       \
+//       -4
+//         \
+//          5
+//           \
+//            6
+//             \
+//              9
 
 console.log(splitBinaryTree(root));
