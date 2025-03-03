@@ -23,7 +23,22 @@ export function mergeOverlappingIntervals(array: number[][]) {
       currTwo >= nextOne &&
       currTwo <= nextTwo
     ) {
-      let mergedInterval = [currOne, nextTwo];
+      //   const greater = currTwo >= nextTwo ? currTwo : nextTwo;
+      //   const mergedInterval = [currOne, greater];
+      //   console.log(mergedInterval, '..,,,,,.');
+      const mergedInterval = [currOne, nextTwo];
+      array.splice(currPointer, 2, mergedInterval);
+
+      currInterval = array[currPointer];
+      nextInterval = array[nextPointer];
+    } else if (
+      currOne <= nextOne &&
+      currOne <= nextTwo &&
+      currTwo >= nextOne &&
+      currTwo >= nextTwo
+    ) {
+      const greater = currTwo >= nextTwo ? currTwo : nextTwo;
+      const mergedInterval = [currOne, greater];
       array.splice(currPointer, 2, mergedInterval);
 
       currInterval = array[currPointer];
@@ -36,7 +51,17 @@ export function mergeOverlappingIntervals(array: number[][]) {
     }
   }
 
-  return array;
+  const intervalsFiltered = array.filter((interval, i) => {
+    // console.log(interval, array[i + 1]);
+    const next = array[i + 1];
+    if (next) {
+      return next[0] >= 1 + interval[1];
+    } else {
+      return true;
+    }
+  });
+
+  return intervalsFiltered;
 }
 
 const array = [
@@ -48,3 +73,23 @@ const array = [
 ];
 
 console.log(mergeOverlappingIntervals(array));
+
+const array2 = [
+  [43, 49],
+  [9, 12],
+  [12, 54],
+  [45, 90],
+  [91, 93],
+];
+
+console.log(mergeOverlappingIntervals(array2), 'ress');
+
+const array3 = [
+  [2, 3],
+  [4, 5],
+  [6, 7],
+  [8, 9],
+  [1, 10],
+];
+
+console.log(mergeOverlappingIntervals(array3), 'ress');
