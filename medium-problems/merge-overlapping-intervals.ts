@@ -23,14 +23,13 @@ export function mergeOverlappingIntervals(array: number[][]) {
       currTwo >= nextOne &&
       currTwo <= nextTwo
     ) {
-      //   const greater = currTwo >= nextTwo ? currTwo : nextTwo;
-      //   const mergedInterval = [currOne, greater];
-      //   console.log(mergedInterval, '..,,,,,.');
       const mergedInterval = [currOne, nextTwo];
       array.splice(currPointer, 2, mergedInterval);
 
       currInterval = array[currPointer];
       nextInterval = array[nextPointer];
+
+      //   current interval contains the next interval there remove next interval
     } else if (
       currOne <= nextOne &&
       currOne <= nextTwo &&
@@ -52,7 +51,6 @@ export function mergeOverlappingIntervals(array: number[][]) {
   }
 
   const intervalsFiltered = array.filter((interval, i) => {
-    // console.log(interval, array[i + 1]);
     const next = array[i + 1];
     if (next) {
       return next[0] >= 1 + interval[1];
