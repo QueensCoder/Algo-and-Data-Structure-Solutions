@@ -1,9 +1,12 @@
 export function minimumCharactersForWords(words: string[]) {
   const minCharsArray: string[] = [];
+  //   O(c) - min number of characters space
   const minCharHash: { [key: string]: number } = {};
+  //   O(n)
   words.forEach((word) => {
     // iterate over each word and hash each char with a count
     let perWordHash: { [key: string]: number } = {};
+    // O(m)
     word.split('').forEach((char) => {
       if (perWordHash[char]) perWordHash[char]++;
       else perWordHash[char] = 1;
