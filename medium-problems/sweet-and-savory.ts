@@ -1,6 +1,6 @@
 export function sweetAndSavory(dishes: number[], target: number) {
   dishes.sort((a, b) => a - b);
-  console.log(dishes);
+
   let pointerOne = 0;
   let pointerTwo = dishes.length - 1;
 
@@ -19,15 +19,33 @@ export function sweetAndSavory(dishes: number[], target: number) {
     for (let j = 0; j < savoryDishes.length; j++) {
       let savoryDish = savoryDishes[j];
 
-      const currentTarget = result.reduce((prev, curr) => (prev += curr));
-      const potentialTarget = sweetDish + savoryDish;
-      console.log(currentTarget, potentialTarget, sweetDish, savoryDish);
+      const potentialCombo = savoryDish + sweetDish;
+      const currDiff = result.reduce((a, b) => (a += b));
+      const potentialDiff = potentialCombo - target;
+      console.log(
+        // currentTarget,
+        // potentialTarget,
+        // sweetDish,
+        // savoryDish,
+        potentialCombo,
+        potentialCombo - target,
+        // currDifference,
+        potentialDiff,
+      );
+
+      if ((potentialCombo <= target && !currDiff) || potentialDiff < currDiff) {
+        result[0] = sweetDish;
+        result[1] = savoryDish;
+      }
     }
   }
+  return result;
 }
 
 const dishes = [-3, -5, 1, 7];
 const target = 8;
 const expected = [-3, 7];
 
-console.log(sweetAndSavory(dishes, target));
+// console.log(sweetAndSavory(dishes, target));
+
+console.log(sweetAndSavory([-5, 10], 4));
