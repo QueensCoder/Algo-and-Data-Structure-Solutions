@@ -1,5 +1,5 @@
 // O(n * m) time, O(n) space, brute force approach
-export function sweetAndSavory(dishes: number[], target: number) {
+export function sweetAndSavoryBruteForce(dishes: number[], target: number) {
   dishes.sort((a, b) => a - b);
 
   const result: number[] = [];
@@ -38,13 +38,58 @@ export function sweetAndSavory(dishes: number[], target: number) {
   return result;
 }
 
+// console.log(sweetAndSavoryBruteForce([-3, -5, 1, 7], 8), [-3, 7]);
+
+// console.log(sweetAndSavoryBruteForce([-5, 10], 4), [-5, 10]);
+
+// console.log(sweetAndSavoryBruteForce([-3, -5, 1, 7], 0), [-3, 1]);
+
+// console.log(
+//   sweetAndSavoryBruteForce(
+//     [17, 37, 12, -102, 53, 49, -90, 102, 49, 16, 52],
+//     -100,
+//   ),
+//   [0, 0],
+// );
+
+// O(n * m) time, O(n) space, brute force approach
+export function sweetAndSavory(dishes: number[], target: number) {
+  dishes.sort((a, b) => a - b);
+  const sweetDishes = dishes.filter((dish) => dish < 0);
+  const savoryDishes = dishes.filter((dish) => dish > 0);
+
+  const exitCaseResult = [0, 0];
+  if (!sweetDishes.length || !savoryDishes.length) return exitCaseResult;
+
+  const result: number[] = [];
+
+  let continueToIterate = true;
+
+  let sweetPointer = 0;
+  let savoryPointer = 0;
+
+  console.log(sweetDishes, savoryDishes);
+  while (continueToIterate) {
+    let sweetDish = sweetDishes[sweetPointer];
+    let savoryDish = savoryDishes[savoryPointer];
+
+    console.log(sweetDish, savoryDish, target);
+
+    console.log(sweetDish + savoryDish);
+
+    continueToIterate = false;
+  }
+
+  return [sweetDishes[sweetPointer], savoryDishes[savoryPointer]];
+}
+
 console.log(sweetAndSavory([-3, -5, 1, 7], 8), [-3, 7]);
 
-console.log(sweetAndSavory([-5, 10], 4), [-5, 10]);
+// console.log(sweetAndSavory([-5, 10], 4), [-5, 10]);
 
-console.log(sweetAndSavory([-3, -5, 1, 7], 0), [-3, 1]);
+// console.log(sweetAndSavory([-3, -5, 1, 7], 0), [-3, 1]);
 
-console.log(
-  sweetAndSavory([17, 37, 12, -102, 53, 49, -90, 102, 49, 16, 52], -100),
-  [0, 0],
-);
+// console.log(
+//   sweetAndSavory([17, 37, 12, -102, 53, 49, -90, 102, 49, 16, 52], -100),
+//   [0, 0],
+// );
