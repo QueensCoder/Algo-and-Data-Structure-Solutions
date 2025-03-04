@@ -1,9 +1,6 @@
 // brute force approach O(n^2)
 export function nextGreaterElement(array: number[]) {
-  const nextGreaterArr = array.map((num) => {
-    console.log(num);
-  });
-  return [];
+  const nextGreaterArray = array.map((num) => console.log(num));
 }
 
 const inputArr = [2, 5, -3, -4, 6, 7, 2];
