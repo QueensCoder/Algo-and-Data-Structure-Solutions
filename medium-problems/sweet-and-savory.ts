@@ -34,6 +34,7 @@ export function sweetAndSavoryBruteForce(dishes: number[], target: number) {
     }
   }
   const currTotal = result.reduce((prev, curr) => (prev += curr), 0);
+  console.log(currTotal, target);
   if (currTotal > target) return exitCaseResult;
   return result;
 }
@@ -52,7 +53,7 @@ export function sweetAndSavoryBruteForce(dishes: number[], target: number) {
 //   [0, 0],
 // );
 
-// O(n * m) time, O(n) space, brute force approach
+// O(nlogn) time, O(n) space, optimal solution
 export function sweetAndSavory(dishes: number[], target: number) {
   dishes.sort((a, b) => a - b);
   const sweetDishes = dishes.filter((dish) => dish < 0);
@@ -61,31 +62,61 @@ export function sweetAndSavory(dishes: number[], target: number) {
   const exitCaseResult = [0, 0];
   if (!sweetDishes.length || !savoryDishes.length) return exitCaseResult;
 
-  const result: number[] = [];
-
-  let continueToIterate = true;
-
   let sweetPointer = 0;
   let savoryPointer = 0;
 
-  console.log(sweetDishes, savoryDishes);
-  while (continueToIterate) {
+  let best = null;
+  const result = [sweetDishes[sweetPointer], savoryDishes[savoryPointer]];
+
+  console.log(
+    sweetDishes.length,
+    sweetPointer,
+    savoryDishes.length,
+    savoryPointer,
+  );
+  while (
+    sweetPointer < sweetDishes.length &&
+    savoryPointer < savoryDishes.length
+  ) {
     let sweetDish = sweetDishes[sweetPointer];
     let savoryDish = savoryDishes[savoryPointer];
 
-    console.log(sweetDish, savoryDish, target);
+    const potentialCombo = savoryDish + sweetDish;
+    const currentCombo = result.reduce((a, b) => (a += b), 0);
+    const potentialDiff = Math.abs(potentialCombo - target);
+    const currentDiff = Math.abs(currentCombo - target);
 
-    console.log(sweetDish + savoryDish);
+    if (
+      !result.length ||
+      (potentialCombo <= target && potentialDiff < currentDiff)
+    ) {
+      result[0] = sweetDish;
+      result[1] = savoryDish;
+    }
 
-    continueToIterate = false;
+    let currentFlavor = sweetDish + savoryDish;
+
+    // if too sweet move savory index
+    if (currentFlavor < 0) {
+      savoryPointer++;
+      //   console.log('too sweet');
+      // else if too savory move sweet pointer
+    } else if (currentFlavor > 0) {
+      //   console.log('too savory');
+      sweetPointer++;
+    } else {
+      break;
+    }
   }
 
-  return [sweetDishes[sweetPointer], savoryDishes[savoryPointer]];
+  const currTotal = result.reduce((prev, curr) => (prev += curr), 0);
+  if (currTotal > target) return exitCaseResult;
+  return result;
 }
 
-console.log(sweetAndSavory([-3, -5, 1, 7], 8), [-3, 7]);
+// console.log(sweetAndSavory([-3, -5, 1, 7], 8), [-3, 7], '--------');
 
-// console.log(sweetAndSavory([-5, 10], 4), [-5, 10]);
+console.log(sweetAndSavory([-5, 10], 5), [-5, 10]);
 
 // console.log(sweetAndSavory([-3, -5, 1, 7], 0), [-3, 1]);
 
